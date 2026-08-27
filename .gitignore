@@ -1,0 +1,17 @@
+# Dart and Flutter generated files
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+build/
+coverage/
+
+# Generated platform metadata
+android/.gradle/
+ios/Pods/
+macos/Pods/
+
+# Editors
+.idea/
+.vscode/
+*.iml
