@@ -32,3 +32,11 @@ Generate platform folders when the target platforms are decided:
 ```sh
 flutter create .
 ```
+
+## UI/UX specification
+
+The proposed Widgetbook architecture, executable-spec conventions, test strategy,
+and phased implementation plan are documented in
+[`docs/widgetbook_executable_spec.md`](docs/widgetbook_executable_spec.md). The
+document is intentionally a design proposal; the production and Widgetbook
+entry points will be introduced in later implementation phases.
