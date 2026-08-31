@@ -18,6 +18,12 @@ different commands or boundaries; do not copy this file into feature folders.
 - `pubspec.yaml`: the sole Dart/Flutter package manifest. Use Flutter's bundled
   Dart and `flutter pub`; this is not a monorepo.
 - `analysis_options.yaml`: `flutter_lints` plus the repository's analyzer rules.
+- `CLAUDE.md`: Claude Code's entry point. Restates this file's scope, adds the
+  always-on working rules, and indexes the skills.
+- `.claude/skills/`: task-scoped skills (feature slice, widget/Widgetbook, Riverpod
+  state, routing, data models, testing, verification, issue logging, doc sync).
+- `issues/`: problems found while doing something else, logged rather than fixed.
+  One file per issue from `issues/TEMPLATE.md`.
 
 Current stack: Dart 3.9+, Flutter/Material 3, Riverpod for state/dependency
 injection, `go_router` for navigation, `flutter_test`/Mocktail for tests, and
@@ -82,7 +88,11 @@ Before reporting completion:
 ## Change discipline (MUST)
 
 - Do not refactor unrelated code. Do not rename, move, reformat, or reorganize
-  unrelated files. Report unrelated technical debt instead of fixing it.
+  unrelated files. Report unrelated technical debt instead of fixing it: log it
+  in `issues/` as `YYYY-MM-DD-slug.md` and continue the current task.
+- Keep each file to a single stated purpose. The ~300-line size above is a review
+  prompt; 400 lines is a hard cap. Split at the cap along a testable
+  responsibility boundary, never into a `_helpers.dart` dumping ground.
 - Do not introduce `BaseRepository`, `GenericRepository`, `BaseService`,
   `AbstractService`, Manager, a handler framework, Factory, Provider, Wrapper,
   Helper, utility layer, or another generic abstraction to future-proof code.

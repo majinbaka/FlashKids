@@ -33,6 +33,21 @@ Generate platform folders when the target platforms are decided:
 flutter create .
 ```
 
+## Working with AI agents
+
+- `AGENTS.md` is the binding contract for any change: architecture, ownership,
+  change discipline, tests, and the Definition of Done.
+- `CLAUDE.md` is Claude Code's entry point. It restates the scope, adds the
+  always-on rules (one purpose per file under 400 lines; minimal precise edits;
+  log issues instead of fixing them; update docs in the same change), and
+  indexes the skills.
+- `.claude/skills/` holds the task-scoped skills: `flutter-feature-slice`,
+  `flutter-widget-ui`, `flutter-riverpod-state`, `flutter-routing`,
+  `flutter-data-model`, `flutter-testing`, `flutter-verify`, `log-issue`, and
+  `sync-docs`.
+- `issues/` collects problems found while doing something else. One file per
+  issue, from `issues/TEMPLATE.md`; see `issues/README.md`.
+
 ## UI/UX specification
 
 The proposed Widgetbook architecture, executable-spec conventions, test strategy,
