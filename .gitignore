@@ -6,6 +6,12 @@
 build/
 coverage/
 
+# Dependency resolution
+# Versions are intentionally `any` and the lock is not committed, so each
+# resolve picks the newest compatible versions. See README.md and
+# deferred-work/2026-09-02-dependency-versions-unpinned.md
+pubspec.lock
+
 # Generated platform metadata
 android/.gradle/
 ios/Pods/
