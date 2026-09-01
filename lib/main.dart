@@ -8,12 +8,7 @@ void main() {
 
 final appRouterProvider = Provider<GoRouter>(
   (ref) => GoRouter(
-    routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, state) => const HomePage(),
-      ),
-    ],
+    routes: [GoRoute(path: '/', builder: (context, state) => const HomePage())],
   ),
 );
 
@@ -38,8 +33,6 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(child: Text('FlashKids')),
-    );
+    return const Scaffold(body: Center(child: Text('FlashKids')));
   }
 }
