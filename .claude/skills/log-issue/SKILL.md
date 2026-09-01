@@ -1,6 +1,6 @@
 ---
 name: log-issue
-description: Use the moment you notice a bug, risk, dead code, or technical debt in FlashKids that the current task did not ask you to fix — write it to a file in `issues/` and keep going instead of fixing it.
+description: Use the moment you notice a bug, risk, dead code, or technical debt in FlashKids that the current task did not ask you to fix — write it to a file in `deferred-work/` and keep going instead of fixing it.
 ---
 
 # Log the issue, do not fix it
@@ -32,25 +32,25 @@ File an issue when, during any task, you notice:
   be right (code vs. doc, doc vs. doc, the task vs. `AGENTS.md` or an ADR, a test
   vs. the requirement). Do not file it and quietly pick a side: stop that part of
   the task, show the user both sides with file:line, and ask. File it in
-  `issues/` only when the conflict is outside the task and blocks nothing.
+  `deferred-work/` only when the conflict is outside the task and blocks nothing.
 
 Never leave a broken build behind and call it an issue.
 
 ## Procedure
 
 1. Confirm it is real — read the code, do not report a suspicion as a fact.
-2. Pick a slug and write `issues/<YYYY-MM-DD>-<short-slug>.md` (use
+2. Pick a slug and write `deferred-work/<YYYY-MM-DD>-<short-slug>.md` (use
    `date +%F` for the date). One issue per file.
-3. Fill in `issues/TEMPLATE.md`. Include the exact `path/to/file.dart:42`
+3. Fill in `deferred-work/TEMPLATE.md`. Include the exact `path/to/file.dart:42`
    references and, where you have one, the failing input or reproduction.
 4. Do not touch the code the issue describes.
 5. Name the file you created in your summary to the user.
 
 ## Template
 
-Copy `issues/TEMPLATE.md`. Every issue needs: a one-line summary, severity,
-where it lives (file:line), what actually happens vs. what should, how to
-reproduce or where you saw it, and the suggested fix with its blast radius.
+Copy `deferred-work/TEMPLATE.md`. Every entry needs: a one-line summary,
+severity, where it lives (file:line), what actually happens vs. what should, how
+to reproduce or where you saw it, and the suggested fix with its blast radius.
 
 Keep it factual. State what you observed and what you inferred, separately, and
 say plainly when you did not verify something.

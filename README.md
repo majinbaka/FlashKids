@@ -39,14 +39,14 @@ flutter create .
   change discipline, tests, and the Definition of Done.
 - `CLAUDE.md` is Claude Code's entry point. It restates the scope, adds the
   always-on rules (one purpose per file under 400 lines; minimal precise edits;
-  log issues instead of fixing them; update docs in the same change), and
+  defer problems instead of fixing them; update docs in the same change), and
   indexes the skills.
 - `.claude/skills/` holds the task-scoped skills: `flutter-feature-slice`,
   `flutter-widget-ui`, `flutter-riverpod-state`, `flutter-routing`,
   `flutter-data-model`, `flutter-testing`, `flutter-verify`, `log-issue`, and
   `sync-docs`.
-- `issues/` collects problems found while doing something else. One file per
-  issue, from `issues/TEMPLATE.md`; see `issues/README.md`.
+- `deferred-work/` collects problems found while doing something else. One file
+  per item, from `deferred-work/TEMPLATE.md`; see `deferred-work/README.md`.
 
 ## UI/UX specification
 

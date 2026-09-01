@@ -34,11 +34,11 @@ it is obviously improvable. Name the minimum set of files before editing and
 treat anything outside it as out of scope. Prefer duplication twice over the
 wrong abstraction once.
 
-**3. Log issues, do not fix them.**
-A problem you notice while doing something else goes in `issues/` as
-`YYYY-MM-DD-slug.md` from `issues/TEMPLATE.md`, and you keep going. Fix it only
-when it *is* the task, when the requested change is wrong without it, or when
-the user asks. See the `log-issue` skill.
+**3. Defer what you find, do not fix it.**
+A problem you notice while doing something else goes in `deferred-work/` as
+`YYYY-MM-DD-slug.md` from `deferred-work/TEMPLATE.md`, and you keep going. Fix
+it only when it *is* the task, when the requested change is wrong without it, or
+when the user asks. See the `log-issue` skill.
 
 **4. Code change ⇒ doc update, same change.**
 Update the documentation the change made false — `README.md`, `AGENTS.md`,
