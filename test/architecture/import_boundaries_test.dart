@@ -70,7 +70,8 @@ void main() {
       expect(
         violations,
         isEmpty,
-        reason: 'production code in lib/ must never import widgetbook/ or '
+        reason:
+            'production code in lib/ must never import widgetbook/ or '
             'test/ code.',
       );
     });
