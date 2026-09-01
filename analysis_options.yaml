@@ -7,6 +7,8 @@ analyzer:
     # build_runner adds this itself on first run; committing it keeps the tree
     # clean so CI's stale-generated-output check stays meaningful.
     - build/**
+    - android/**
+    - web/**
 
 linter:
   rules:
