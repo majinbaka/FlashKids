@@ -57,9 +57,14 @@ Check for:
 - Weakened or skipped tests.
 - Unsafe casts, `dynamic`, `// ignore`, or new analyzer exclusions.
 - Backward-compatibility breaks without a stated migration.
+- A conflict you resolved on your own judgment — a doc rewritten to agree with
+  the code, a test bent to match new behavior, an `AGENTS.md`/ADR rule worked
+  around. Undo the resolution and put the choice to the user instead.
 
 ## Report
 
 State what you ran, what passed, what failed with its output, and what you did
 not run. Then confirm the related docs were updated (`sync-docs`) and that any
-unrelated problems you noticed were filed (`log-issue`) rather than fixed.
+unrelated problems you noticed were filed (`log-issue`) rather than fixed. Name
+any conflict you hit, whether the user decided it or it is still open — a change
+reported as done must not carry an unmentioned contradiction.

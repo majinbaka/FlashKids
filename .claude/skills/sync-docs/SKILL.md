@@ -39,6 +39,10 @@ Work through this list against your diff:
   it, document the migration, then implement.
 - If you find a doc that already contradicted the code before your change, that
   is a separate problem — file it with `log-issue` rather than rewriting it.
+- If a doc contradicts the change you are making, or two docs contradict each
+  other about it, that is a conflict, not a doc chore. Ask the user which one is
+  authoritative before editing either — do not decide it by rewriting the doc
+  that disagrees with your code.
 
 ## Procedure
 

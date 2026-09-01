@@ -28,6 +28,11 @@ File an issue when, during any task, you notice:
   change correct. Then fix it.
 - It blocks you completely. Then file it *and* stop to report the blocker.
 - The user explicitly says to fix what you find.
+- It is a **conflict** on the current task's path — two sources that cannot both
+  be right (code vs. doc, doc vs. doc, the task vs. `AGENTS.md` or an ADR, a test
+  vs. the requirement). Do not file it and quietly pick a side: stop that part of
+  the task, show the user both sides with file:line, and ask. File it in
+  `issues/` only when the conflict is outside the task and blocks nothing.
 
 Never leave a broken build behind and call it an issue.
 

@@ -45,6 +45,14 @@ Update the documentation the change made false — `README.md`, `AGENTS.md`,
 `docs/`, ADRs, doc comments — before reporting done. Update what is wrong, not
 everything nearby. See the `sync-docs` skill.
 
+**5. Conflict ⇒ confirm with the user.**
+Two sources that cannot both be right — code vs. doc, doc vs. doc, the task vs.
+`AGENTS.md` or an ADR, a test vs. the requirement — stop the affected part and
+put both sides to the user with file:line references and your recommendation.
+Never pick a side yourself, never delete or rewrite the losing statement to make
+the contradiction disappear, never leave it out of your summary. Rule 3 is for a
+problem you can walk past; a conflict is a decision that is the user's to make.
+
 ## Skills
 
 In `.claude/skills/`. Invoke by name; they assume `AGENTS.md` and the rules

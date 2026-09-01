@@ -57,6 +57,28 @@ Before reporting completion:
    logic, dead code/TODOs, weakened tests, unsafe casts/suppressions, and backward
    compatibility issues.
 
+## Conflicts (MUST)
+
+A conflict is two sources that cannot both be right: code contradicting a
+document, one document contradicting another, the requested change contradicting
+`AGENTS.md` or an accepted ADR, or a test contradicting the stated requirement.
+
+- Stop and ask the user. Give both sides with a `path/to/file.dart:42` reference
+  for each, what you were about to do, the options, and your recommendation.
+  Wait for the decision before touching either side.
+- Never resolve one on your own judgment and never hide one. Do not silently
+  pick the code over the doc or the doc over the code, do not rewrite or delete
+  the losing statement, do not weaken a test to agree with the code, and do not
+  omit the contradiction from your summary because the task still "worked".
+- Do everything the conflict does not block first, then ask about the part it
+  blocks. One ambiguous line does not stall the whole task.
+- A conflict outside the current task that blocks nothing is an issue: log it in
+  `issues/` and keep going. A conflict on the current task's path is a question
+  for the user, not an issue file.
+- Once the user decides, record the decision where it belongs — the doc update
+  in the same change, an ADR for a repository-wide call — so the next change
+  does not re-litigate it.
+
 ## Architecture and ownership (MUST)
 
 - Preserve the architecture that exists; consistency is more important than
