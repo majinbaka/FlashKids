@@ -33,6 +33,14 @@ Generate platform folders when the target platforms are decided:
 flutter create .
 ```
 
+## Continuous integration
+
+[`.github/workflows/ci.yml`](.github/workflows/ci.yml) runs the Definition of
+Done — `dart format --set-exit-if-changed`, `flutter analyze`, `flutter test` —
+on push to `main` and on every pull request, and fails when `build_runner`
+output is stale or uncommitted. Because dependencies are `any` and the lock is
+not committed, the workflow prints the versions it resolved.
+
 ## Working with AI agents
 
 - `AGENTS.md` is the binding contract for any change: architecture, ownership,
@@ -43,8 +51,15 @@ flutter create .
   indexes the skills.
 - `.claude/skills/` holds the task-scoped skills: `flutter-feature-slice`,
   `flutter-widget-ui`, `flutter-riverpod-state`, `flutter-routing`,
-  `flutter-data-model`, `flutter-testing`, `flutter-verify`, `log-issue`, and
-  `sync-docs`.
+  `flutter-data-model`, `flutter-testing`, `flutter-verify`, `flutter-l10n`,
+  `flutter-a11y-kids-ui`, `flutter-error-handling`, `flutter-persistence`,
+  `widgetbook-catalogue`, `commit-and-pr`, `log-issue`, and `sync-docs`.
+- `.claude/commands/` holds the slash commands `/dod`, `/defer`, and
+  `/spec-phase`. `.claude/settings.json` allowlists the read-only Flutter, Dart,
+  and git commands and formats Dart files after they are written.
+- `docs/adr/` holds accepted repository-wide decisions;
+  [`0001`](docs/adr/0001-feature-first-slices-riverpod-go-router.md) binds the
+  architecture.
 - `deferred-work/` collects problems found while doing something else. One file
   per item, from `deferred-work/TEMPLATE.md`; see `deferred-work/README.md`.
 
