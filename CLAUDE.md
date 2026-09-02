@@ -34,16 +34,24 @@ it is obviously improvable. Name the minimum set of files before editing and
 treat anything outside it as out of scope. Prefer duplication twice over the
 wrong abstraction once.
 
-**3. Log issues, do not fix them.**
-A problem you notice while doing something else goes in `issues/` as
-`YYYY-MM-DD-slug.md` from `issues/TEMPLATE.md`, and you keep going. Fix it only
-when it *is* the task, when the requested change is wrong without it, or when
-the user asks. See the `log-issue` skill.
+**3. Defer what you find, do not fix it.**
+A problem you notice while doing something else goes in `deferred-work/` as
+`YYYY-MM-DD-slug.md` from `deferred-work/TEMPLATE.md`, and you keep going. Fix
+it only when it *is* the task, when the requested change is wrong without it, or
+when the user asks. See the `log-issue` skill.
 
 **4. Code change ⇒ doc update, same change.**
 Update the documentation the change made false — `README.md`, `AGENTS.md`,
 `docs/`, ADRs, doc comments — before reporting done. Update what is wrong, not
 everything nearby. See the `sync-docs` skill.
+
+**5. Conflict ⇒ confirm with the user.**
+Two sources that cannot both be right — code vs. doc, doc vs. doc, the task vs.
+`AGENTS.md` or an ADR, a test vs. the requirement — stop the affected part and
+put both sides to the user with file:line references and your recommendation.
+Never pick a side yourself, never delete or rewrite the losing statement to make
+the contradiction disappear, never leave it out of your summary. Rule 3 is for a
+problem you can walk past; a conflict is a decision that is the user's to make.
 
 ## Skills
 

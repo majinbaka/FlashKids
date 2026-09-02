@@ -22,8 +22,8 @@ different commands or boundaries; do not copy this file into feature folders.
   always-on working rules, and indexes the skills.
 - `.claude/skills/`: task-scoped skills (feature slice, widget/Widgetbook, Riverpod
   state, routing, data models, testing, verification, issue logging, doc sync).
-- `issues/`: problems found while doing something else, logged rather than fixed.
-  One file per issue from `issues/TEMPLATE.md`.
+- `deferred-work/`: problems found while doing something else, logged rather
+  than fixed. One file per item from `deferred-work/TEMPLATE.md`.
 
 Current stack: Dart 3.9+, Flutter/Material 3, Riverpod for state/dependency
 injection, `go_router` for navigation, `flutter_test`/Mocktail for tests, and
@@ -57,6 +57,28 @@ Before reporting completion:
    logic, dead code/TODOs, weakened tests, unsafe casts/suppressions, and backward
    compatibility issues.
 
+## Conflicts (MUST)
+
+A conflict is two sources that cannot both be right: code contradicting a
+document, one document contradicting another, the requested change contradicting
+`AGENTS.md` or an accepted ADR, or a test contradicting the stated requirement.
+
+- Stop and ask the user. Give both sides with a `path/to/file.dart:42` reference
+  for each, what you were about to do, the options, and your recommendation.
+  Wait for the decision before touching either side.
+- Never resolve one on your own judgment and never hide one. Do not silently
+  pick the code over the doc or the doc over the code, do not rewrite or delete
+  the losing statement, do not weaken a test to agree with the code, and do not
+  omit the contradiction from your summary because the task still "worked".
+- Do everything the conflict does not block first, then ask about the part it
+  blocks. One ambiguous line does not stall the whole task.
+- A conflict outside the current task that blocks nothing is deferred work: log
+  it in `deferred-work/` and keep going. A conflict on the current task's path is
+  a question for the user, not a deferred-work file.
+- Once the user decides, record the decision where it belongs — the doc update
+  in the same change, an ADR for a repository-wide call — so the next change
+  does not re-litigate it.
+
 ## Architecture and ownership (MUST)
 
 - Preserve the architecture that exists; consistency is more important than
@@ -89,7 +111,7 @@ Before reporting completion:
 
 - Do not refactor unrelated code. Do not rename, move, reformat, or reorganize
   unrelated files. Report unrelated technical debt instead of fixing it: log it
-  in `issues/` as `YYYY-MM-DD-slug.md` and continue the current task.
+  in `deferred-work/` as `YYYY-MM-DD-slug.md` and continue the current task.
 - Keep each file to a single stated purpose. The ~300-line size above is a review
   prompt; 400 lines is a hard cap. Split at the cap along a testable
   responsibility boundary, never into a `_helpers.dart` dumping ground.
