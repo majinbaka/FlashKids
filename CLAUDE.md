@@ -71,6 +71,7 @@ above.
 
 | Skill | Use when |
 |---|---|
+| `project-knowledge` | answering a question about FlashKids instead of changing it — what it is, what exists, what to do next |
 | `flutter-feature-slice` | adding a feature or moving behavior out of `main.dart`; file placement and layering |
 | `flutter-widget-ui` | any screen, widget, or Widgetbook story |
 | `flutter-riverpod-state` | providers, notifiers, controllers, view state, overrides |

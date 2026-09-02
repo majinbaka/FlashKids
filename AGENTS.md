@@ -27,7 +27,8 @@ different commands or boundaries; do not copy this file into feature folders.
 - `.claude/skills/`: task-scoped skills (feature slice, widget/Widgetbook, Riverpod
   state, routing, data models, testing, verification, issue logging, doc sync,
   localization, accessibility, error handling, persistence, Widgetbook catalogue,
-  commits and PRs).
+  commits and PRs) plus `project-knowledge`, the question-answering digest of
+  this repository's product and technical state.
 - `.claude/commands/`: slash commands — `/dod`, `/defer`, `/spec-phase`.
 - `.claude/settings.json`, `.claude/hooks/`: the Claude Code harness for this
   repository — a permission allowlist, a deny rule on hand-editing generated

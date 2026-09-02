@@ -49,7 +49,9 @@ not committed, the workflow prints the versions it resolved.
   always-on rules (one purpose per file under 400 lines; minimal precise edits;
   defer problems instead of fixing them; update docs in the same change), and
   indexes the skills.
-- `.claude/skills/` holds the task-scoped skills: `flutter-feature-slice`,
+- `.claude/skills/` holds `project-knowledge` — the digest that answers
+  questions about the system without re-reading it — and the task-scoped skills
+  `flutter-feature-slice`,
   `flutter-widget-ui`, `flutter-riverpod-state`, `flutter-routing`,
   `flutter-data-model`, `flutter-testing`, `flutter-verify`, `flutter-l10n`,
   `flutter-a11y-kids-ui`, `flutter-error-handling`, `flutter-persistence`,
