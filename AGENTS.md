@@ -15,6 +15,10 @@ different commands or boundaries; do not copy this file into feature folders.
 - `docs/widgetbook_executable_spec.md`: proposed feature-first, ports-and-adapters
   direction and phased Widgetbook plan. It is not an ADR or evidence that the
   proposed files, routes, domain, infrastructure, or Widgetbook executable exist.
+- `design.md`: the normative UI/UX and concept-style contract — audience, Kid
+  Zone / Parent Zone split, visual language, sizing, motion, copy, and the UI
+  Definition of Done. It decides how UI must look and behave; it is not evidence
+  that any screen, token, or component it names exists.
 - `pubspec.yaml`: the sole Dart/Flutter package manifest. Use Flutter's bundled
   Dart and `flutter pub`; this is not a monorepo.
 - `analysis_options.yaml`: `flutter_lints` plus the repository's analyzer rules.

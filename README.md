@@ -65,6 +65,10 @@ not committed, the workflow prints the versions it resolved.
 
 ## UI/UX specification
 
+[`design.md`](design.md) is the normative UI/UX and concept-style contract —
+who the app is for, the Kid Zone / Parent Zone split, visual language, sizing
+and spacing, motion and audio, copy, and the UI Definition of Done.
+
 The proposed Widgetbook architecture, executable-spec conventions, test strategy,
 and phased implementation plan are documented in
 [`docs/widgetbook_executable_spec.md`](docs/widgetbook_executable_spec.md). The

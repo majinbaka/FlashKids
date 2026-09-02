@@ -22,6 +22,11 @@ the architecture: Riverpod for state and DI, `go_router`, feature-first slices
 with ports and adapters. It does not authorise migrating the repository to that
 layout as a side effect.
 
+`design.md` is the normative UI/UX and concept-style contract: audience, the
+Kid Zone / Parent Zone split, visual language, sizing, motion, copy, and the UI
+Definition of Done. Read it before any UI work. Like the ADR, it decides how UI
+must look and behave — it does not authorise building the components it names.
+
 There is no database, API client, auth, or logging framework. Do not invent
 their conventions — `flutter-persistence` and `flutter-error-handling` say what
 to do when a task introduces the first one.
