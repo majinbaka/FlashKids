@@ -15,30 +15,47 @@ different commands or boundaries; do not copy this file into feature folders.
 - `docs/widgetbook_executable_spec.md`: proposed feature-first, ports-and-adapters
   direction and phased Widgetbook plan. It is not an ADR or evidence that the
   proposed files, routes, domain, infrastructure, or Widgetbook executable exist.
+- `design.md`: the normative UI/UX and concept-style contract — audience, Kid
+  Zone / Parent Zone split, visual language, sizing, motion, copy, and the UI
+  Definition of Done. It decides how UI must look and behave; it is not evidence
+  that any screen, token, or component it names exists.
 - `pubspec.yaml`: the sole Dart/Flutter package manifest. Use Flutter's bundled
   Dart and `flutter pub`; this is not a monorepo.
 - `analysis_options.yaml`: `flutter_lints` plus the repository's analyzer rules.
 - `CLAUDE.md`: Claude Code's entry point. Restates this file's scope, adds the
   always-on working rules, and indexes the skills.
 - `.claude/skills/`: task-scoped skills (feature slice, widget/Widgetbook, Riverpod
-  state, routing, data models, testing, verification, issue logging, doc sync).
+  state, routing, data models, testing, verification, issue logging, doc sync,
+  localization, accessibility, error handling, persistence, Widgetbook catalogue,
+  commits and PRs).
+- `.claude/commands/`: slash commands — `/dod`, `/defer`, `/spec-phase`.
+- `.claude/settings.json`, `.claude/hooks/`: the Claude Code harness for this
+  repository — a permission allowlist, a deny rule on hand-editing generated
+  files, and a PostToolUse hook that formats the Dart file just written.
+- `docs/adr/`: accepted repository-wide decisions. `0001` binds the architecture.
 - `deferred-work/`: problems found while doing something else, logged rather
   than fixed. One file per item from `deferred-work/TEMPLATE.md`.
+- `test/architecture/`: tests that enforce architecture rules rather than
+  behavior. Currently the ADR-0001 import-boundary check.
+- `.github/workflows/ci.yml`: runs the Definition of Done on push and pull
+  request.
 
 Current stack: Dart 3.9+, Flutter/Material 3, Riverpod for state/dependency
 injection, `go_router` for navigation, `flutter_test`/Mocktail for tests, and
 Freezed/JSON/build_runner for generation when models actually require them.
 Patrol and Widgetbook are installed but no integration suite or catalogue entry
-point exists. There is no database, API client, authentication/authorization,
-logging framework, CI workflow, or accepted ADR yet; do not invent their
-conventions.
+point exists. There is no database, API client, authentication/authorization, or
+logging framework yet; do not invent their conventions — `flutter-persistence`
+and `flutter-error-handling` govern the first one introduced. The architecture
+is settled by `docs/adr/0001-feature-first-slices-riverpod-go-router.md`, which
+does not authorise migrating to it as a side effect.
 
 ## Workflow (MUST)
 
 Before coding:
 
 1. Read every `AGENTS.md` that scopes the target file, then the relevant README,
-   spec, or ADR (if one is later accepted).
+   spec, and any accepted ADR in `docs/adr/` that scopes it.
 2. Identify the primary owning module, affected modules, and dependency impact.
    In today's flat bootstrap, name the responsibility in `lib/main.dart`; do not
    pretend a proposed feature exists.
@@ -178,17 +195,24 @@ When annotated/generated sources change, regenerate before the checks:
 dart run build_runner build --delete-conflicting-outputs
 ```
 
-Patrol is only required once an `integration_test/` suite exists. No CI or
-machine-enforced import-boundary check exists today. Until then, analyzer/type
-rules, formatter checks, and tests are machine-enforced locally only; ownership,
-dependency direction, minimal-change, contract, and abstraction rules are
-documented review rules.
+`.github/workflows/ci.yml` runs exactly these commands on push to `main` and on
+every pull request, and fails on stale or uncommitted generated output. Patrol
+is only required once an `integration_test/` suite exists.
+
+Machine-enforced: formatter, analyzer/type rules, tests, and — through
+`test/architecture/import_boundaries_test.dart` — the dependency direction of
+ADR-0001 clause 4, which passes vacuously until `lib/features/` exists.
+Ownership, minimal-change, contract, and abstraction rules remain documented
+review rules.
 
 ## Architecture decisions (SHOULD)
 
 - Use `docs/adr/` only for an accepted, repository-wide decision such as module
   boundaries, state management, persistence, authentication, eventing, or API
-  conventions. Do not write ADRs for local implementation choices.
+  conventions. Do not write ADRs for local implementation choices. Copy
+  `docs/adr/TEMPLATE.md` and list the record in `docs/adr/README.md`.
+- `0001-feature-first-slices-riverpod-go-router.md` is accepted and binds the
+  architecture, dependency direction, and file-size rules stated below.
 - Do not silently contradict an accepted ADR. Supersede it, document compatibility
   and migration, then implement incrementally.
 - Add a concise feature README only for a genuinely complex module; include its
@@ -197,10 +221,13 @@ documented review rules.
 
 ## Future machine enforcement (MAY, only when justified)
 
-- When feature directories exist, add a focused dependency test or analyzer
-  import rule that prevents domain/application imports from presentation,
-  infrastructure, and Widgetbook, and prevents `lib/` from importing
-  `widgetbook/` or `test/`.
-- When CI is added, run the exact Definition of Done commands and fail on dirty
-  generated output. Add catalogue/navigation/golden/Patrol checks only after
-  those artifacts and suites exist; do not install tooling preemptively.
+Done: the dependency test (`test/architecture/import_boundaries_test.dart`) and
+CI running the exact Definition of Done commands (`.github/workflows/ci.yml`).
+
+Still open, and still only when justified:
+
+- Extend the boundary test, or add an analyzer import rule, as real slices
+  appear — presentation must not be imported by domain/application, and the
+  forbidden-package list needs the storage or HTTP package a task actually adds.
+- Add catalogue, navigation, golden, and Patrol checks to CI only after those
+  artifacts and suites exist; do not install tooling preemptively.

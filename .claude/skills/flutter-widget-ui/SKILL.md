@@ -9,6 +9,12 @@ Use this skill for every file under a `presentation/` directory and for every
 Widgetbook use-case. One widget per file; the file is named after the widget in
 `snake_case`. Keep it under 400 lines (`flutter-feature-slice`).
 
+Every widget also has three obligations owned by other skills, and they are
+decided while you build it, not afterwards: `flutter-a11y-kids-ui` (touch
+targets, semantics, contrast, text scaling), `flutter-l10n` (no user-facing
+literal), and `widgetbook-catalogue` (where the story lives and how it is
+named).
+
 ## Widget rules
 
 - A widget renders state, collects input, dispatches actions, and handles
@@ -32,7 +38,8 @@ Widgetbook use-case. One widget per file; the file is named after the widget in
 Widgetbook and `widgetbook_annotation` are installed, but **no catalogue entry
 point exists yet**. Before adding the first story, confirm the task actually
 approves creating `widgetbook/` — do not introduce the executable as a side
-effect of a widget change.
+effect of a widget change. `widgetbook-catalogue` owns the catalogue's
+hierarchy, scenario IDs, and harness.
 
 When stories do exist:
 
