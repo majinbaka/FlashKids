@@ -13,9 +13,9 @@ more expensive than starting with it.
 ## Current state
 
 There is **no localization**. `flutter_localizations`, `intl`, `l10n.yaml`, and
-`lib/l10n/` do not exist, and the only strings in the app are hardcoded:
-`lib/main.dart:26` (`title: 'FlashKids'`) and `lib/main.dart:42`
-(`Text('FlashKids')`).
+`lib/l10n/` do not exist, and the only strings in the app are hardcoded, both
+in `lib/main.dart`: `title: 'FlashKids'` in `FlashKidsApp.build` and
+`Text('FlashKids')` in `HomePage.build`.
 
 Introducing localization changes `pubspec.yaml` and adds a generation step to
 the build. That is a dependency and tooling decision — do it when a task
@@ -38,7 +38,8 @@ approves it, never as a side effect of adding a screen. Until then, follow
    and `lib/l10n/app_<locale>.arb` per locale. Declare the source-of-truth
    locale explicitly.
 2. Wire `localizationsDelegates` and `supportedLocales` on the `MaterialApp` in
-   the composition root, next to `routerConfig` (`lib/main.dart:31`).
+   the composition root, next to `routerConfig` in `FlashKidsApp.build`
+   (`lib/main.dart`).
 3. Generated localization output is generated code: never hand-edit it, and
    regenerate rather than patch (`flutter-data-model`).
 4. Record the decision — supported locales, fallback behavior, and where the

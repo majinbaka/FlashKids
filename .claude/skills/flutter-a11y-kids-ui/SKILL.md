@@ -45,7 +45,8 @@ and a screen reader can actually operate the result.
   icon.
 - Text and essential icons meet WCAG AA contrast (4.5:1 body, 3:1 for large
   text and meaningful graphics) against their actual background — check the
-  seeded Material 3 scheme (`lib/main.dart:28`), do not assume it passes.
+  seeded Material 3 scheme (`ColorScheme.fromSeed` in `FlashKidsApp.build`,
+  `lib/main.dart`), do not assume it passes.
 - Respect the platform text scale. Do not clamp `textScaler` to 1.0, and do not
   fix a height that only fits at the default scale. Test at ~200%: text may
   wrap, containers may grow, nothing may be cut off or unreachable.
