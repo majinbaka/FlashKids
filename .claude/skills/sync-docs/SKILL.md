@@ -22,6 +22,7 @@ Work through this list against your diff:
 | a public API, port, DTO, or serialized shape | the doc comment on the type, plus any spec that names it |
 | a feature's rules or workflow | that feature's README, if it has one |
 | something the spec described as proposed | mark it implemented — do not leave a proposal reading as if it were still pending |
+| what exists, what a rule says, or what is still undecided | `.claude/skills/project-knowledge/references/` — the digest goes stale the moment the repository stops matching it |
 
 ## Rules
 

@@ -17,8 +17,19 @@ installed but with **no** catalogue entry point and no `integration_test/` suite
 `docs/widgetbook_executable_spec.md` is a **proposal**. It is not evidence that
 any file, route, layer, or story it describes exists.
 
-There is no database, API client, auth, logging framework, CI workflow, or
-accepted ADR. Do not invent their conventions.
+`docs/adr/0001-feature-first-slices-riverpod-go-router.md` is accepted and binds
+the architecture: Riverpod for state and DI, `go_router`, feature-first slices
+with ports and adapters. It does not authorise migrating the repository to that
+layout as a side effect.
+
+`design.md` is the normative UI/UX and concept-style contract: audience, the
+Kid Zone / Parent Zone split, visual language, sizing, motion, copy, and the UI
+Definition of Done. Read it before any UI work. Like the ADR, it decides how UI
+must look and behave — it does not authorise building the components it names.
+
+There is no database, API client, auth, or logging framework. Do not invent
+their conventions — `flutter-persistence` and `flutter-error-handling` say what
+to do when a task introduces the first one.
 
 ## Always-on rules
 
@@ -60,6 +71,7 @@ above.
 
 | Skill | Use when |
 |---|---|
+| `project-knowledge` | answering a question about FlashKids instead of changing it — what it is, what exists, what to do next |
 | `flutter-feature-slice` | adding a feature or moving behavior out of `main.dart`; file placement and layering |
 | `flutter-widget-ui` | any screen, widget, or Widgetbook story |
 | `flutter-riverpod-state` | providers, notifiers, controllers, view state, overrides |
@@ -67,8 +79,32 @@ above.
 | `flutter-data-model` | models, DTOs, Freezed, JSON, `build_runner` |
 | `flutter-testing` | unit, widget, golden, or Patrol tests; bug regressions |
 | `flutter-verify` | before reporting any change complete |
+| `flutter-l10n` | any user-facing string, or introducing localization |
+| `flutter-a11y-kids-ui` | touch targets, semantics, contrast, text scaling, motion, audio |
+| `flutter-error-handling` | anything that can fail — ports, adapters, boundaries, error UI |
+| `flutter-persistence` | storing or reading data that outlives the session; migrations |
+| `widgetbook-catalogue` | the Widgetbook executable, its hierarchy, and use-cases |
+| `commit-and-pr` | committing, naming a branch, opening a pull request |
 | `log-issue` | you found a problem outside the current task |
 | `sync-docs` | after a code change, to find the docs it invalidated |
+
+## Slash commands
+
+In `.claude/commands/`. Invoke with `/name`.
+
+| Command | Does |
+|---|---|
+| `/dod` | run the Definition of Done and review the diff (`flutter-verify`) |
+| `/defer <slug>` | file a `deferred-work/` item from the template (`log-issue`) |
+| `/spec-phase <n>` | prepare one phase of the Widgetbook spec, then wait for approval |
+
+## Harness
+
+`.claude/settings.json` allowlists the read-only Flutter, Dart, and git commands
+so they do not prompt, denies edits to `*.g.dart` / `*.freezed.dart`, and runs
+`.claude/hooks/format-dart.sh` after every Edit/Write — that hook formats the
+Dart file you just wrote, skipping generated output, and does nothing when the
+Dart SDK is absent.
 
 ## Commands
 
@@ -91,6 +127,11 @@ flutter test
 flutter test test/features/deck/               # a subtree
 flutter test --name 'renders the empty state'  # by name
 ```
+
+`.github/workflows/ci.yml` runs exactly these on push to `main` and on every
+pull request, and fails on stale or uncommitted generated output.
+`test/architecture/import_boundaries_test.dart` enforces ADR-0001's dependency
+direction; it passes vacuously until `lib/features/` exists.
 
 Platform folders are not generated yet; `flutter create .` adds them once target
 platforms are decided.
