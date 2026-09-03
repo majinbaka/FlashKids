@@ -91,6 +91,9 @@ class ModuleOverviewScreen extends StatelessWidget {
                     backgroundAsset: activity.backgroundAsset,
                     semanticsLabel:
                         '${activity.label}. ${activity.description}',
+                    showIcon: false,
+                    showDetail: false,
+                    showArrow: false,
                   ),
                   onPressed: () => onActivitySelected(activity),
                   variant: KidDestinationCardVariant.horizontal,

@@ -82,4 +82,39 @@ void main() {
     expect(tester.takeException(), isNull);
     semantics.dispose();
   });
+
+  testWidgets('keeps subject labels right-aligned and learning cards minimal', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: const FullApplicationFlow(),
+      ),
+    );
+
+    await tester.tap(find.text('Bắt đầu'));
+    await tester.pump();
+
+    final subjectLabel = find.text('Tiếng Việt');
+    final subjectCard = find.ancestor(
+      of: subjectLabel,
+      matching: find.byType(InkWell),
+    );
+    expect(
+      tester.getCenter(subjectLabel).dx,
+      greaterThan(tester.getCenter(subjectCard).dx),
+    );
+
+    await tester.tap(subjectLabel);
+    await tester.pump();
+
+    expect(find.text('Nhận biết chữ cái'), findsNothing);
+    expect(find.byIcon(Icons.abc_rounded), findsNothing);
+    expect(find.byIcon(Icons.arrow_forward_rounded), findsNothing);
+    expect(find.text('Chữ cái'), findsOneWidget);
+  });
 }

@@ -5,10 +5,29 @@ import 'package:flash_kids/features/learning/presentation/module_overview_screen
 import 'package:flutter/material.dart';
 
 const vietnameseBackground =
-    'assets/images/subjects/vietnamese-subject-background.png';
+    'assets/images/subjects/vietnamese-subject-background-v2.png';
 const englishBackground =
-    'assets/images/subjects/english-subject-background.png';
-const mathBackground = 'assets/images/subjects/math-subject-background.png';
+    'assets/images/subjects/english-subject-background-v2.png';
+const mathBackground = 'assets/images/subjects/math-subject-background-v2.png';
+const vietnameseAlphabetBackground =
+    'assets/images/subjects/vietnamese-alphabet-background.png';
+const vietnameseSpellingBackground =
+    'assets/images/subjects/vietnamese-spelling-background.png';
+const vietnamesePronunciationBackground =
+    'assets/images/subjects/vietnamese-pronunciation-background.png';
+const vietnameseGamesBackground =
+    'assets/images/subjects/vietnamese-games-background.png';
+const englishVocabularyBackground =
+    'assets/images/subjects/english-vocabulary-background.png';
+const englishPronunciationBackground =
+    'assets/images/subjects/english-pronunciation-background.png';
+const englishGamesBackground =
+    'assets/images/subjects/english-games-background.png';
+const mathAdditionBackground =
+    'assets/images/subjects/math-addition-background.png';
+const mathSubtractionBackground =
+    'assets/images/subjects/math-subtraction-background.png';
+const mathGamesBackground = 'assets/images/subjects/math-games-background.png';
 
 const prototypeModules = <LearningModuleSummary>[
   LearningModuleSummary(
@@ -61,28 +80,28 @@ List<LearningActivitySummary> activitiesFor(String moduleId) {
         label: 'Chữ cái',
         description: 'Nhận biết chữ cái',
         icon: Icons.abc_rounded,
-        backgroundAsset: vietnameseBackground,
+        backgroundAsset: vietnameseAlphabetBackground,
       ),
       LearningActivitySummary(
         id: 'vietnamese-spelling',
         label: 'Đánh vần',
         description: 'Ghép các tiếng đơn giản',
         icon: Icons.extension_rounded,
-        backgroundAsset: vietnameseBackground,
+        backgroundAsset: vietnameseSpellingBackground,
       ),
       LearningActivitySummary(
         id: 'vietnamese-pronunciation',
         label: 'Phát âm',
         description: 'Nghe mẫu rồi nói theo',
         icon: Icons.record_voice_over_rounded,
-        backgroundAsset: vietnameseBackground,
+        backgroundAsset: vietnamesePronunciationBackground,
       ),
       LearningActivitySummary(
         id: 'vietnamese-games',
         label: 'Mini games',
         description: 'Chơi và ôn Tiếng Việt',
         icon: Icons.sports_esports_rounded,
-        backgroundAsset: vietnameseBackground,
+        backgroundAsset: vietnameseGamesBackground,
       ),
     ],
     'english' => const [
@@ -91,21 +110,21 @@ List<LearningActivitySummary> activitiesFor(String moduleId) {
         label: 'Từ vựng',
         description: 'Học từ bằng hình ảnh',
         icon: Icons.image_rounded,
-        backgroundAsset: englishBackground,
+        backgroundAsset: englishVocabularyBackground,
       ),
       LearningActivitySummary(
         id: 'english-pronunciation',
         label: 'Phát âm',
         description: 'Nghe và nói theo',
         icon: Icons.mic_rounded,
-        backgroundAsset: englishBackground,
+        backgroundAsset: englishPronunciationBackground,
       ),
       LearningActivitySummary(
         id: 'english-games',
         label: 'Mini games',
         description: 'Chơi và ôn Tiếng Anh',
         icon: Icons.sports_esports_rounded,
-        backgroundAsset: englishBackground,
+        backgroundAsset: englishGamesBackground,
       ),
     ],
     'math' => const [
@@ -114,21 +133,21 @@ List<LearningActivitySummary> activitiesFor(String moduleId) {
         label: 'Cộng',
         description: 'Gộp các nhóm đồ vật',
         icon: Icons.add_circle_rounded,
-        backgroundAsset: mathBackground,
+        backgroundAsset: mathAdditionBackground,
       ),
       LearningActivitySummary(
         id: 'math-subtraction',
         label: 'Trừ',
         description: 'Xem còn lại bao nhiêu',
         icon: Icons.remove_circle_rounded,
-        backgroundAsset: mathBackground,
+        backgroundAsset: mathSubtractionBackground,
       ),
       LearningActivitySummary(
         id: 'math-games',
         label: 'Mini games',
         description: 'Chơi và ôn Toán',
         icon: Icons.sports_esports_rounded,
-        backgroundAsset: mathBackground,
+        backgroundAsset: mathGamesBackground,
       ),
     ],
     _ => const [],

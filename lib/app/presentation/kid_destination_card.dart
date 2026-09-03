@@ -12,6 +12,7 @@ class KidDestinationCardViewState {
     this.backgroundAsset,
     this.showIcon = true,
     this.showDetail = true,
+    this.showArrow = true,
   });
 
   final String label;
@@ -21,6 +22,7 @@ class KidDestinationCardViewState {
   final String? backgroundAsset;
   final bool showIcon;
   final bool showDetail;
+  final bool showArrow;
 }
 
 class KidDestinationCard extends StatelessWidget {
@@ -89,29 +91,33 @@ class _VerticalDestinationCard extends StatelessWidget {
               constraints: BoxConstraints(minHeight: prominent ? 160 : 0),
               child: Padding(
                 padding: EdgeInsets.all(prominent ? 24 : 16),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    if (state.showIcon) ...[
-                      Icon(
-                        state.icon,
-                        size: prominent ? 64 : 48,
-                        color: prominent ? null : colors.onPrimaryContainer,
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      if (state.showIcon) ...[
+                        Icon(
+                          state.icon,
+                          size: prominent ? 64 : 48,
+                          color: prominent ? null : colors.onPrimaryContainer,
+                        ),
+                        SizedBox(height: prominent ? 12 : 8),
+                      ],
+                      Text(
+                        state.label,
+                        textAlign: TextAlign.right,
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                          fontWeight: FontWeight.w900,
+                          color: colors.onSurface,
+                        ),
                       ),
-                      SizedBox(height: prominent ? 12 : 8),
+                      if (state.showDetail)
+                        Text(state.detail, textAlign: TextAlign.right),
                     ],
-                    Text(
-                      state.label,
-                      textAlign: TextAlign.center,
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                        fontWeight: FontWeight.w900,
-                        color: colors.onSurface,
-                      ),
-                    ),
-                    if (state.showDetail)
-                      Text(state.detail, textAlign: TextAlign.center),
-                  ],
+                  ),
                 ),
               ),
             ),
@@ -144,23 +150,38 @@ class _HorizontalDestinationCard extends StatelessWidget {
               padding: const EdgeInsets.all(24),
               child: Row(
                 children: [
-                  Icon(state.icon, size: 40),
-                  const SizedBox(width: 16),
+                  if (state.showIcon) ...[
+                    Icon(state.icon, size: 40),
+                    const SizedBox(width: 16),
+                  ],
                   Expanded(
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: state.showIcon
+                          ? CrossAxisAlignment.start
+                          : CrossAxisAlignment.center,
                       children: [
                         Text(
                           state.label,
+                          textAlign: state.showIcon
+                              ? TextAlign.left
+                              : TextAlign.center,
                           style: Theme.of(context).textTheme.titleLarge
                               ?.copyWith(fontWeight: FontWeight.w800),
                         ),
-                        const SizedBox(height: 4),
-                        Text(state.detail),
+                        if (state.showDetail) ...[
+                          const SizedBox(height: 4),
+                          Text(
+                            state.detail,
+                            textAlign: state.showIcon
+                                ? TextAlign.left
+                                : TextAlign.center,
+                          ),
+                        ],
                       ],
                     ),
                   ),
-                  const Icon(Icons.arrow_forward_rounded),
+                  if (state.showArrow) const Icon(Icons.arrow_forward_rounded),
                 ],
               ),
             ),
