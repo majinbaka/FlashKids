@@ -2,10 +2,10 @@
 
 > **Status:** normative design contract. This document decides *how* FlashKids
 > UI must look and behave. It is **not** evidence that any screen, token,
-> component, asset, or theme file described here exists. Today the repository is
-> a single-package Flutter bootstrap whose only screen lives in `lib/main.dart`.
-> Build what a task asks for; do not create the vocabulary below as a side
-> effect.
+> component, asset, or theme file described here exists. Today the production
+> entry point remains a minimal bootstrap, while a presentation-only Widgetbook
+> prototype exercises shared widgets and feature screens from `lib/`. Build what
+> a task asks for; do not extend this vocabulary as a side effect.
 
 Read this together with `AGENTS.md` (binding), `CLAUDE.md` (always-on rules),
 `docs/adr/0001-feature-first-slices-riverpod-go-router.md` (architecture), and
@@ -182,10 +182,11 @@ Rules:
 
 ## 6. Component vocabulary
 
-Names below are the shared vocabulary for discussing FlashKids UI. **None of
-them exist yet.** Create one only when a task asks for it, in the owning
-feature's `presentation/` directory, one widget per file
-(`flutter-feature-slice`).
+Names below are the shared vocabulary for discussing FlashKids UI. Some now
+exist as presentation-only prototype components. Create another only when a task
+asks for it. Keep feature-local widgets in the owning feature's `presentation/`
+directory and components used across real feature screens in
+`lib/app/presentation/`, one widget per file (`flutter-feature-slice`).
 
 - **Flashcard** — the focal surface: picture, optional word, optional audio
   trigger. States: idle, revealed, correct, incorrect, disabled.
@@ -240,6 +241,12 @@ that is a state value, not three flags the caller must combine correctly.
   the word", not "speaker icon" (`flutter-a11y-kids-ui`).
 - **Numbers and dates** are localized, never string-concatenated.
 
+The presentation-only Widgetbook prototype approved on 2026-09-03 may keep its
+Vietnamese review copy directly in prototype presentation widgets until the
+localization foundation is introduced. This narrow exception does not apply to
+production-connected screens; moving one into the production flow requires ARB
+keys and generated accessors in the same change.
+
 ## 9. The parent gate
 
 Any route that leaves the Kid Zone — settings, purchases, account, external
@@ -255,14 +262,16 @@ gate.
   Kid Zone.
 - The gate is an accessibility surface too: it must be operable by an adult
   using a screen reader.
-- **The concrete challenge mechanism is not decided** (§12). Do not invent one
-  as a side effect; ask.
+- The prototype mechanism is a three-second press-and-hold followed by a written
+  arithmetic challenge. Releasing early resets the hold; an unsuccessful answer
+  remains in the gate with neutral retry copy. This must be validated before a
+  production release.
 
 ## 10. Widgetbook and the state matrix
 
-`docs/widgetbook_executable_spec.md` is a proposal, and **no catalogue entry
-point exists**. Do not create `widgetbook/` as a side effect of a UI change
-(`widgetbook-catalogue`).
+`docs/widgetbook_executable_spec.md` records the implemented presentation-only
+prototype scope. Its catalogue entry point is `widgetbook/main.dart`; production
+routing and behavior remain separate (`widgetbook-catalogue`).
 
 When stories do exist, a component's story covers the full state matrix from
 §6 plus the accessibility-relevant variants: large text scale, long localized
@@ -301,7 +310,8 @@ user (`AGENTS.md` → Conflicts).
 - Dark mode.
 - Typeface. The app currently uses the Material 3 default; no font package is a
   dependency.
-- The concrete parent-gate challenge.
+- The production validation and hardening of the approved prototype parent-gate
+  challenge.
 - Card content domains (letters, numbers, vocabulary, language pairs) and the
   session length and repetition model.
 - Sound design, voice-over language coverage, and whether narration is recorded

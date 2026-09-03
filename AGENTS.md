@@ -1,20 +1,26 @@
 # FlashKids agent guardrails
 
-This file applies to the whole repository. FlashKids is currently a **single-package
-Flutter bootstrap**, not yet the feature architecture proposed in
-`docs/widgetbook_executable_spec.md`. Treat that document as a proposal, not as an
-implemented contract. Add a nested `AGENTS.md` only when a real subtree develops
-different commands or boundaries; do not copy this file into feature folders.
+This file applies to the whole repository. FlashKids is a **single-package
+Flutter app with a presentation-only Widgetbook prototype**. The production
+entry point remains a minimal bootstrap; shared presentation widgets and feature
+screens under `lib/` are exercised by the catalogue and its local sample flow.
+Add a nested `AGENTS.md` only when a real subtree develops different commands or
+boundaries; do not copy this file into feature folders.
 
 ## Repository map
 
 - `lib/main.dart`: current production entry point, `ProviderScope`, app shell,
-  `GoRouter`, and placeholder Home UI. Until modules exist, it owns app behavior.
+  `GoRouter`, and placeholder Home UI. The prototype screens are not connected
+  to production routing.
+- `lib/app/presentation/`: presentation components shared across feature screens.
+- `lib/features/`: presentation-only feature slices used by the prototype.
+- `widgetbook/`: catalogue entry point, component/screen stories, local sample
+  data, and the interactive full-application prototype flow.
 - `test/`: Flutter unit/widget tests. Mirror a new source subtree when features
   are introduced; keep behavior tests near the corresponding test subtree.
-- `docs/widgetbook_executable_spec.md`: proposed feature-first, ports-and-adapters
-  direction and phased Widgetbook plan. It is not an ADR or evidence that the
-  proposed files, routes, domain, infrastructure, or Widgetbook executable exist.
+- `docs/widgetbook_executable_spec.md`: implemented prototype boundary, screen
+  inventory, reuse model, and the remaining non-production scope. It is not an
+  ADR and does not imply that production routes or application/data layers exist.
 - `design.md`: the normative UI/UX and concept-style contract — audience, Kid
   Zone / Parent Zone split, visual language, sizing, motion, copy, and the UI
   Definition of Done. It decides how UI must look and behave; it is not evidence
@@ -44,12 +50,13 @@ different commands or boundaries; do not copy this file into feature folders.
 Current stack: Dart 3.9+, Flutter/Material 3, Riverpod for state/dependency
 injection, `go_router` for navigation, `flutter_test`/Mocktail for tests, and
 Freezed/JSON/build_runner for generation when models actually require them.
-Patrol and Widgetbook are installed but no integration suite or catalogue entry
-point exists. There is no database, API client, authentication/authorization, or
-logging framework yet; do not invent their conventions — `flutter-persistence`
-and `flutter-error-handling` govern the first one introduced. The architecture
-is settled by `docs/adr/0001-feature-first-slices-riverpod-go-router.md`, which
-does not authorise migrating to it as a side effect.
+Patrol and Widgetbook are installed; the Widgetbook catalogue exists, while no
+Patrol integration suite exists. There is no database, API client,
+authentication/authorization, or logging framework yet; do not invent their
+conventions — `flutter-persistence` and `flutter-error-handling` govern the first
+one introduced. The architecture is settled by
+`docs/adr/0001-feature-first-slices-riverpod-go-router.md`, which does not
+authorise connecting the prototype to production as a side effect.
 
 ## Workflow (MUST)
 
@@ -58,8 +65,8 @@ Before coding:
 1. Read every `AGENTS.md` that scopes the target file, then the relevant README,
    spec, and any accepted ADR in `docs/adr/` that scopes it.
 2. Identify the primary owning module, affected modules, and dependency impact.
-   In today's flat bootstrap, name the responsibility in `lib/main.dart`; do not
-   pretend a proposed feature exists.
+   Keep cross-feature presentation primitives in `lib/app/presentation/`; do not
+   treat the presentation-only prototype as production-connected behavior.
 3. Search for the closest implementation and test. Follow a reasonable existing
    pattern rather than introducing a theoretically cleaner competing pattern.
 4. State the acceptance behavior, minimum affected files, public contracts at

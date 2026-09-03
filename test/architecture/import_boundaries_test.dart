@@ -1,9 +1,9 @@
 // Machine-enforces the dependency direction of ADR-0001, clause 4.
 //
-// This is vacuous while `lib/features/` does not exist: it asserts nothing
-// about a repository that has no slices yet, and starts failing the moment the
-// first slice imports across a forbidden boundary. Generated output is skipped
-// because build_runner, not a human, decides its imports.
+// It checks every domain/application directory as feature slices are added.
+// Presentation-only slices contain no such files and therefore add no boundary
+// candidates. Generated output is skipped because build_runner, not a human,
+// decides its imports.
 import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';

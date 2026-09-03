@@ -5,6 +5,8 @@
 .packages
 build/
 coverage/
+.widgetbook.log
+.widgetbook.pid
 
 # Dependency resolution
 # Versions are intentionally `any` and the lock is not committed, so each
