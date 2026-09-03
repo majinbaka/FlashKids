@@ -1,8 +1,8 @@
 # 02 — Minh hoạ nội dung thẻ (asset lớn nhất)
 
-> **Đề xuất.** `design.md` §12 để ngỏ cả "card content domains (letters,
-> numbers, vocabulary, language pairs)" lẫn nguồn asset. Danh sách chủ đề dưới
-> đây là **gợi ý để bắt đầu**, không phải quyết định nội dung sản phẩm.
+> **Đã chốt — 2026-09-03.** Bộ nội dung đầu tiên là 12 thẻ “Động vật quen”:
+> cat, dog, cow, duck, fish, rabbit, bird, horse, sheep, pig, frog, bee. Các
+> chủ đề còn lại vẫn là gợi ý cho các đợt sau.
 
 ## Dùng ở đâu
 Thành phần **Flashcard** (`design.md` §6) — mặt tranh chính, vật thể tiêu điểm

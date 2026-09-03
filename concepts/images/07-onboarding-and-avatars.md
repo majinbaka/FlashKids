@@ -10,7 +10,7 @@ Màn hình chào lần đầu, chọn hồ sơ trẻ.
 ## Prompt A — hero màn hình chào
 
 ```text
-A warm welcoming scene for a children's learning app: the baby fox mascot
+A warm welcoming scene for a children's learning app: the baby sloth mascot
 standing at the center-left waving one paw, three large rounded flashcard shapes
 floating in a gentle arc to its right at slightly different angles, each card a
 plain solid lavender #EBDDFF rectangle with very rounded corners and no content
@@ -81,9 +81,9 @@ NEGATIVE: (như Prompt A)
 
 | Bước | `{{STEP_SCENE}}` |
 |---|---|
-| 1 — chọn bộ thẻ | The baby fox mascot pointing at three large rounded blank cards laid side by side |
-| 2 — chạm để trả lời | The baby fox mascot touching one large rounded blank card with a paw, a soft lavender ripple ring around the touch point |
-| 3 — nghe âm thanh | The baby fox mascot with one paw cupped near its ear, three soft rounded sound-wave arcs beside it |
+| 1 — chọn bộ thẻ | The baby sloth mascot pointing at three large rounded blank cards laid side by side |
+| 2 — chạm để trả lời | The baby sloth mascot touching one large rounded blank card with a paw, a soft lavender ripple ring around the touch point |
+| 3 — nghe âm thanh | The baby sloth mascot with one paw cupped near its ear, three soft rounded sound-wave arcs beside it |
 
 ## Kiểm tra trước khi nhận
 - [ ] 12 avatar ở 40×40 px: **phân biệt được khi in đen trắng**.

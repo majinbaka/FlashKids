@@ -22,7 +22,7 @@ Thành phần **Progress indicator** và **Session summary** (`design.md` §6).
 > - marker phải **đổi trạng thái liên tục trong lúc học** — chuyển đổi mượt là
 >   việc của code, không phải của việc tráo ảnh;
 > - màu lấy từ `ColorScheme` role (`outlineVariant`, `primary`,
->   `{{SUCCESS_ACCENT}}`), nên khi accent được chốt trong theme thì marker tự
+>   `#4C6B4F`), nên khi accent được chốt trong theme thì marker tự
 >   đúng, không phải xuất lại 3 file;
 > - ở 24×24 px, PNG bo tròn bị mờ viền, `BoxDecoration` thì không.
 >
@@ -44,7 +44,7 @@ sparkle, 3D, glossy, multiple shapes, tiny details.
 |---|---|---|---|
 | chưa làm | a hollow rounded circle ring | `#CBC4CF` | rỗng ruột |
 | đang làm | a rounded circle with a smaller circle inside | `#68548E` | có lõi đặc |
-| đã xong | a rounded circle with a thick check-like notch cut out | `{{SUCCESS_ACCENT}}` | có khấc hình tick |
+| đã xong | a rounded circle with a thick check-like notch cut out | `#4C6B4F` | có khấc hình tick |
 
 Ba bước **khác nhau về hình**, nên vẫn đọc được khi trẻ không phân biệt màu
 (`design.md` §4).

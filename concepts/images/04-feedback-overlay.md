@@ -22,7 +22,7 @@ A joyful celebration burst radiating outward from the center, made of simple
 rounded confetti shapes: soft rounded stars, circles, teardrops and short
 rounded ribbons, scattered evenly in a radial pattern with an empty calm center,
 colors soft violet #68548E, lavender #EBDDFF, muted rose #FFD9E1, warm plum
-#7E525D and gentle green {{SUCCESS_ACCENT}}, transparent background.
+#7E525D and gentle green #4C6B4F, transparent background.
 
 STYLE: flat vector illustration, modern picture-book aesthetic, bold simple
 geometric shapes with soft rounded corners and no sharp 90-degree corners, matte
@@ -88,7 +88,7 @@ NEGATIVE: text, watermark, outline, stroke, shadow, gradient, glow, sparkle,
 | circle | `#EBDDFF` |
 | teardrop | `#FFD9E1` |
 | short rounded ribbon | `#7E525D` |
-| rounded heart | `{{SUCCESS_ACCENT}}` |
+| rounded heart | `#4C6B4F` |
 
 ## Kiểm tra trước khi nhận
 - [ ] In đen trắng: A và B vẫn khác nhau rõ ràng **chỉ nhờ hình dạng**.

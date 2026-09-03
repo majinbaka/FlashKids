@@ -33,7 +33,7 @@ Khung giữa để trống là chỗ bạn ghép screenshot thật vào.
 ## Prompt B — feature graphic (Google Play, 1024×500)
 
 ```text
-A wide banner illustration for a children's learning app: the baby fox mascot
+A wide banner illustration for a children's learning app: the baby sloth mascot
 standing at the right third waving, three large rounded blank flashcard shapes
 floating at the left third in a gentle arc, cream white #FEF7FF background with
 a soft lavender #EBDDFF rounded shape behind the cards, the horizontal center

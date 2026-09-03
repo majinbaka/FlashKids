@@ -5,15 +5,13 @@ Thư mục này chứa **prompt sinh ảnh** cho FlashKids, viết bám theo `de
 `ColorScheme.fromSeed(seedColor: Colors.deepPurple)` trong `FlashKidsApp.build`
 (`lib/main.dart`).
 
-> ## ⚠ Trạng thái: ĐỀ XUẤT, chưa được duyệt
+> ## Trạng thái: Đã duyệt — 2026-09-03
 >
-> `design.md` §12 liệt kê **"Mascot, illustration style guide, and where art
-> assets come from"** là *deliberately undecided* — và ghi rõ: không tự quyết,
-> phải hỏi. Toàn bộ thư mục này là **đề xuất để bạn duyệt**, không phải chuẩn đã
-> chốt. Nó không cho phép ai thêm asset vào `lib/` hay `pubspec.yaml`.
->
-> Khi bạn duyệt, hãy ghi quyết định vào `design.md` (§3 Illustration + §12) trong
-> **cùng một change** — `CLAUDE.md` rule 4.
+> `design.md` §3 chốt phong cách minh hoạ picture-book vector, mascot con lười
+> tím, và PNG nền trong suốt tại `assets/images/`. Accent phản hồi tích cực là
+> `#4C6B4F`, với container `#CDE9CE`. Bộ nội dung đầu tiên là 12 thẻ “Động vật
+> quen”. Những đề xuất khác trong thư mục này vẫn cần được duyệt riêng khi chúng
+> trở thành phạm vi thực hiện.
 
 ---
 
@@ -100,7 +98,7 @@ tỉ lệ chiếm khung và cùng độ bão hoà, nếu không bộ thẻ sẽ 
 
 Ba lý do chung, tất cả đều bắt nguồn từ `design.md`:
 
-- **Màu lấy từ `ColorScheme` role** (§4) — chốt `{{SUCCESS_ACCENT}}` trong theme
+- **Màu lấy từ `ColorScheme` role** (§4) — ánh xạ accent đúng `#4C6B4F` trong theme
   một lần là mọi thứ tự đúng, không phải xuất lại file nào.
 - **Sắc nét ở mọi mật độ pixel** — không cần `@2x`/`@3x`, và không mờ viền ở
   24×24 px.
@@ -149,38 +147,36 @@ bạn quyết định xuất file thật.
 | `tertiary` / `tertiaryContainer` | `#7E525D` / `#FFD9E1` | má mascot, accent ấm, loop "thử lại" |
 | `errorContainer` | `#FFDAD6` | mức tối đa cho tín hiệu tiêu cực ở Kid Zone |
 | `error` | `#BA1A1A` | **không dùng trong ảnh trẻ em** |
-| `{{SUCCESS_ACCENT}}` | *chưa quyết* | marker đã xong, hạt confetti, huy hiệu |
+| accent đúng | `#4C6B4F` | marker đã xong, hạt confetti, huy hiệu |
 
 Chi tiết đầy đủ: [`images/00-art-direction.md`](images/00-art-direction.md) §1.
 
 ---
 
-## 6. Bốn quyết định đang chặn — cần bạn chốt
+## 6. Các quyết định đã chốt
 
 | # | Câu hỏi | Chặn cái gì | Khuyến nghị |
 |---|---|---|---|
-| 1 | **Duyệt style guide này?** `design.md:§12` ghi illustration style guide là undecided | toàn bộ thư mục | duyệt, rồi ghi vào `design.md` §3 + §12 |
-| 2 | **Mascot: hướng A / B / C?** | file 01, và 04, 06, 07, 10 phụ thuộc nó | **A — cáo con tím**, hợp seed `deepPurple` |
-| 3 | **Màu "đúng" là gì?** `design.md:§4` bảo dùng "the theme's success-side accent", nhưng `ColorScheme` M3 không có role `success` và `lib/main.dart` chưa map | mọi chỗ có `{{SUCCESS_ACCENT}}` | thêm vào theme: `#4C6B4F` + container `#CDE9CE`, **chốt trong theme trước** |
-| 4 | **Nội dung thẻ là gì?** `design.md:§12` để ngỏ letters/numbers/vocabulary | file 02 — asset nhiều nhất | chốt 2–3 bộ đầu trước khi sinh 150 ảnh |
+| 1 | Art direction | toàn bộ thư mục | picture-book vector, đã ghi tại `design.md` §3 |
+| 2 | Mascot | 01, 04, 06, 07, 10, 11 | con lười tím |
+| 3 | Màu “đúng” | feedback, reward, trạng thái hoàn thành | `#4C6B4F` + container `#CDE9CE` |
+| 4 | Nội dung đầu tiên | file 02 | 12 thẻ “Động vật quen” |
 
-Quyết định #3 là một **mâu thuẫn tài liệu ↔ code** theo nghĩa của
-`AGENTS.md` → Conflicts: `design.md` giả định một accent tồn tại, theme thì
-không có. Đừng để widget hay file ảnh tự chọn — sửa ở theme.
+Ánh xạ màu phản hồi tích cực trong theme phải được thêm trước khi widget feedback
+đầu tiên được triển khai; không widget nào được tự chọn màu “đúng”.
 
 ---
 
 ## 7. Thứ tự làm (đề xuất)
 
-1. **Chốt 4 quyết định ở §4.** Không sinh hàng loạt trước khi chốt mascot.
-2. **Sinh 01 (mascot)** — nhân vật chính trước, expression sheet sau, giữ nguyên
+1. **Sinh 01 (mascot)** — nhân vật chính trước, expression sheet sau, giữ nguyên
    phần prompt để nhân vật không trôi giữa các tư thế.
-3. **Sinh 06 + 04** — state placeholder và feedback là thứ khiến app *trông đã
+2. **Sinh 06 + 04** — state placeholder và feedback là thứ khiến app *trông đã
    xong*; thiếu chúng thì `design.md` §0.3 coi màn hình là chưa hoàn thiện.
-4. **Sinh 02 cho 1 bộ thẻ** (12 ảnh), test trên thiết bị thật, rồi mới nhân rộng.
+3. **Sinh 02 cho 1 bộ thẻ** (12 ảnh), test trên thiết bị thật, rồi mới nhân rộng.
    Đến đây bạn đã có đủ **bản tối thiểu ở §2**.
-5. **Sinh 03, 05, 10.** (08 không cần ảnh — xem §3.)
-6. **09, 07, 11** khi các quyết định tương ứng đã có.
+4. **Sinh 03, 05, 10.** (08 không cần ảnh — xem §3.)
+5. **09, 07, 11** khi các quyết định tương ứng đã có.
 
 ---
 

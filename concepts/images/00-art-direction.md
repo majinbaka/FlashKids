@@ -1,11 +1,7 @@
 # 00 — Art direction (khối style dùng chung)
 
-> **Trạng thái: ĐỀ XUẤT, chưa được duyệt.** `design.md` §12 ghi rõ "Mascot,
-> illustration style guide, and where art assets come from" là **deliberately
-> undecided**. File này *đề xuất* style guide đó. Nó chỉ trở thành chuẩn khi bạn
-> duyệt và ghi quyết định vào `design.md` (§3 Illustration + §12) trong cùng một
-> change. Trước khi được duyệt, không dùng nó để biện minh cho việc thêm asset
-> vào repo.
+> **Trạng thái: Đã duyệt — 2026-09-03.** `design.md` §3 xác nhận style guide
+> này, mascot con lười tím, và PNG nền trong suốt tại `assets/images/`.
 
 Đọc kèm: `design.md` §2 (nguyên tắc), §3 (visual language), §4 (color), §6
 (component vocabulary), §11 (UI DoD).
@@ -37,13 +33,10 @@
 | `outlineVariant` | `#CBC4CF` | viền rất nhẹ |
 | `onSurface` | `#1D1B20` | mực đậm nhất được phép |
 
-**Màu "đúng / positive" chưa được quyết.** `design.md` §4 nói positive feedback
-dùng "the theme's success-side accent", nhưng `ColorScheme` của Material 3 không
-có role `success` và theme trong `lib/main.dart` chưa map nó. Mọi prompt bên dưới
-để placeholder `{{SUCCESS_ACCENT}}`.
-**Đề xuất:** xanh lá dịu `#4C6B4F` (chữ/hình trên nền sáng) + container
-`#CDE9CE`. **Phải chốt trong theme trước, rồi mới thay vào prompt** — widget và
-tranh không được tự quyết "đúng" trông thế nào (`design.md` §4).
+**Màu "đúng / positive" đã chốt:** xanh lá dịu `#4C6B4F` (chữ/hình trên nền
+sáng) + container `#CDE9CE`. Widget feedback đầu tiên phải ánh xạ hai màu này
+trong theme; widget và tranh không được tự quyết "đúng" trông thế nào
+(`design.md` §4).
 
 Palette mở rộng cho nội dung thẻ (động vật, đồ vật…) được phép đi ra ngoài bảng
 trên, nhưng phải **cùng độ bão hoà**: pastel ấm, không neon, không huỳnh quang.
@@ -104,12 +97,11 @@ không dịch được.
 
 ---
 
-## 5. Kỹ thuật xuất file (đề xuất — pipeline chưa tồn tại)
+## 5. Kỹ thuật xuất file
 
-`pubspec.yaml` hiện **không có mục `assets:`** và không có `flutter_svg`. Cả
-đường đi của asset lẫn định dạng đều thuộc §12 "undecided". Đề xuất:
+`pubspec.yaml` đăng ký `assets/images/`; không cần `flutter_svg` cho bộ PNG này.
 
-- PNG nền trong suốt, sRGB, xuất `@1x / @2x / @3x` theo quy ước Flutter.
+- PNG nền trong suốt, sRGB, tại `assets/images/`.
 - Vuông 1:1 cho subject; 4:3 cho scene; 16:9 cho hero.
 - Đặt tên `kebab-case`, tiền tố theo nhóm: `mascot-cheer.png`,
   `card-animal-cat.png`, `state-empty.png`.

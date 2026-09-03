@@ -111,7 +111,12 @@ relative to the focal object.
 
 **Illustration.** Simple, high-contrast, clearly silhouetted subjects on plain
 backgrounds. A picture must be recognizable at a glance and at small size. No
-busy backgrounds behind text. Decorative art is `ExcludeSemantics`.
+busy backgrounds behind text. Decorative art is `ExcludeSemantics`. The approved
+art direction is flat, modern picture-book vector illustration: matte pastel
+fills, soft rounded geometric forms, generous negative space, and no neon,
+photorealism, or 3D gloss. The Kid Zone mascot is a friendly purple baby sloth.
+Source artwork is authored as transparent PNG files under `assets/images/`;
+composited legacy and favicon icons may use their approved flat background.
 
 **Personality of motion.** Springy and short, never floaty. Motion confirms
 what a tap did; it does not entertain by itself (§7).
@@ -296,7 +301,6 @@ user (`AGENTS.md` → Conflicts).
 - Dark mode.
 - Typeface. The app currently uses the Material 3 default; no font package is a
   dependency.
-- Mascot, illustration style guide, and where art assets come from.
 - The concrete parent-gate challenge.
 - Card content domains (letters, numbers, vocabulary, language pairs) and the
   session length and repetition model.
