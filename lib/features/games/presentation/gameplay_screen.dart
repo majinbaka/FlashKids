@@ -48,6 +48,7 @@ class GameplayScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: colors.primaryContainer,
                   borderRadius: BorderRadius.circular(40),
+                  border: Border.all(color: colors.outline, width: 3),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(32),

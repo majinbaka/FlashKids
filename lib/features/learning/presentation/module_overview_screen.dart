@@ -56,6 +56,7 @@ class ModuleOverviewScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: colors.tertiaryContainer,
                   borderRadius: BorderRadius.circular(32),
+                  border: Border.all(color: colors.outline, width: 3),
                 ),
                 child: Padding(
                   padding: const EdgeInsets.all(24),

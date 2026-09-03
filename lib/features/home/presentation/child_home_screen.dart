@@ -38,28 +38,34 @@ class ChildHomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     return Scaffold(
-      backgroundColor: colors.primaryContainer,
-      body: SafeArea(
-        child: LayoutBuilder(
-          builder: (context, constraints) {
-            final isLandscape =
-                constraints.maxWidth >= constraints.maxHeight * 1.6;
-            return isLandscape
-                ? _LandscapeHomeContent(
-                    modules: modules,
-                    onModuleSelected: onModuleSelected,
-                    onGames: onGames,
-                    onCollection: onCollection,
-                    onParentArea: onParentArea,
-                  )
-                : _PortraitHomeContent(
-                    modules: modules,
-                    onModuleSelected: onModuleSelected,
-                    onGames: onGames,
-                    onCollection: onCollection,
-                    onParentArea: onParentArea,
-                  );
-          },
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      body: DefaultTextStyle.merge(
+        style: TextStyle(color: colors.onInverseSurface),
+        child: IconTheme.merge(
+          data: IconThemeData(color: colors.onInverseSurface),
+          child: SafeArea(
+            child: LayoutBuilder(
+              builder: (context, constraints) {
+                final isLandscape =
+                    constraints.maxWidth >= constraints.maxHeight * 1.6;
+                return isLandscape
+                    ? _LandscapeHomeContent(
+                        modules: modules,
+                        onModuleSelected: onModuleSelected,
+                        onGames: onGames,
+                        onCollection: onCollection,
+                        onParentArea: onParentArea,
+                      )
+                    : _PortraitHomeContent(
+                        modules: modules,
+                        onModuleSelected: onModuleSelected,
+                        onGames: onGames,
+                        onCollection: onCollection,
+                        onParentArea: onParentArea,
+                      );
+              },
+            ),
+          ),
         ),
       ),
     );
@@ -126,7 +132,7 @@ class _PortraitHomeContent extends StatelessWidget {
             child: Text(
               'HỌC',
               style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                color: colors.primary,
+                color: colors.tertiary,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -173,7 +179,7 @@ class _PortraitHomeContent extends StatelessWidget {
             child: Text(
               'CHƠI',
               style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                color: colors.primary,
+                color: colors.tertiary,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -224,6 +230,9 @@ class _PortraitHomeContent extends StatelessWidget {
                 button: true,
                 child: TextButton.icon(
                   onPressed: onParentArea,
+                  style: TextButton.styleFrom(
+                    foregroundColor: colors.onInverseSurface,
+                  ),
                   icon: const Icon(Icons.family_restroom_rounded),
                   label: const Text('Phụ huynh'),
                 ),
@@ -294,7 +303,7 @@ class _LandscapeHomeContent extends StatelessWidget {
                 Text(
                   'HỌC',
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    color: colors.primary,
+                    color: colors.tertiary,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -336,7 +345,7 @@ class _LandscapeHomeContent extends StatelessWidget {
                 Text(
                   'CHƠI',
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    color: colors.primary,
+                    color: colors.tertiary,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -374,9 +383,12 @@ class _LandscapeHomeContent extends StatelessWidget {
                   child: Semantics(
                     label: 'Mở cổng dành cho phụ huynh',
                     button: true,
-                    child: TextButton.icon(
-                      onPressed: onParentArea,
-                      icon: const Icon(Icons.family_restroom_rounded),
+                  child: TextButton.icon(
+                    onPressed: onParentArea,
+                    style: TextButton.styleFrom(
+                      foregroundColor: colors.onInverseSurface,
+                    ),
+                    icon: const Icon(Icons.family_restroom_rounded),
                       label: const Text('Phụ huynh'),
                     ),
                   ),

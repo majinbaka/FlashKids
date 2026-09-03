@@ -40,6 +40,7 @@ class KidFeedbackPanel extends StatelessWidget {
         decoration: BoxDecoration(
           color: success ? colors.tertiaryContainer : colors.secondaryContainer,
           borderRadius: BorderRadius.circular(24),
+          border: Border.all(color: colors.outline, width: 3),
         ),
         child: Padding(
           padding: EdgeInsets.all(prominent ? 24 : 16),

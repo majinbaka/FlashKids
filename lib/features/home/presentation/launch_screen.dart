@@ -10,14 +10,18 @@ class LaunchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     return Scaffold(
-      backgroundColor: colors.primaryContainer,
-      body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            padding: const EdgeInsets.all(24),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      body: DefaultTextStyle.merge(
+        style: TextStyle(color: colors.onInverseSurface),
+        child: IconTheme.merge(
+          data: IconThemeData(color: colors.onInverseSurface),
+          child: SafeArea(
+            child: Center(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.all(24),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
                 ExcludeSemantics(
                   child: Image.asset(
                     'assets/images/mascots/mascot-idle.png',
@@ -43,7 +47,9 @@ class LaunchScreen extends StatelessWidget {
                   icon: Icons.play_arrow_rounded,
                   onPressed: onContinue,
                 ),
-              ],
+                  ],
+                ),
+              ),
             ),
           ),
         ),

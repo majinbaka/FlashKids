@@ -70,6 +70,7 @@ class CollectionScreen extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: colors.surfaceContainerHigh,
                   borderRadius: BorderRadius.circular(32),
+                  border: Border.all(color: colors.outline, width: 3),
                 ),
                 child: const Padding(
                   padding: EdgeInsets.all(24),
@@ -122,6 +123,10 @@ class _MasteryCard extends StatelessWidget {
           decoration: BoxDecoration(
             color: background,
             borderRadius: BorderRadius.circular(32),
+            border: Border.all(
+              color: Theme.of(context).colorScheme.outline,
+              width: 3,
+            ),
           ),
           child: Padding(
             padding: const EdgeInsets.all(24),

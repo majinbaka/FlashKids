@@ -81,7 +81,10 @@ class _VerticalDestinationCard extends StatelessWidget {
       color: prominent
           ? colors.tertiaryContainer
           : colors.surfaceContainerLowest,
-      borderRadius: BorderRadius.circular(32),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(32),
+        side: BorderSide(color: colors.outline, width: 3),
+      ),
       clipBehavior: Clip.antiAlias,
       child: InkWell(
         borderRadius: BorderRadius.circular(32),

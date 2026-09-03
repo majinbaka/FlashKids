@@ -18,7 +18,7 @@ class KidZoneScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     return Scaffold(
-      backgroundColor: colors.primaryContainer,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       body: SafeArea(
         child: Column(
           children: [
@@ -43,7 +43,10 @@ class KidZoneScaffold extends StatelessWidget {
                       title,
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.headlineSmall
-                          ?.copyWith(fontWeight: FontWeight.bold),
+                          ?.copyWith(
+                            color: colors.onInverseSurface,
+                            fontWeight: FontWeight.bold,
+                          ),
                     ),
                   ),
                   const SizedBox(width: 16),

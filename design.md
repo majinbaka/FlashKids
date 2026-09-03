@@ -129,11 +129,23 @@ Parent Zone: body and label roles at their normal sizes. Never hardcode a
 
 ## 4. Color
 
-**The theme is Material 3, seeded from `Colors.deepPurple`
-(`ColorScheme.fromSeed` in `FlashKidsApp.build`, `lib/main.dart`). Do not change
-the seed, and do not introduce a second palette, as part of an unrelated
-task.** Changing it is a repository-wide decision that needs the user's approval
-and a doc update in the same change.
+**The theme is light Material 3 and uses the approved FlashKids palette in
+`flashKidsTheme` (`lib/app/presentation/flash_kids_theme.dart`).** The palette is
+a repository-wide contract; do not change it or introduce a second palette as
+part of an unrelated task. Changing it needs the user's approval and a doc
+update in the same change.
+
+| Material role | Color |
+|---|---|
+| `primary` | `#DF301C` — warm red |
+| `secondary` | `#FF9100` — orange |
+| `surface` | `#FFF1D1` — cream |
+| `tertiary` | `#00B7CD` — cyan |
+| Kid Zone background | `#FFF1D1` — cream |
+
+The theme defines compatible `on*`, container, outline, and elevation colors
+for this scheme. Widgets use those semantic roles and must not create local
+brand-color literals.
 
 Rules:
 

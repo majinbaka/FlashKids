@@ -48,6 +48,7 @@ class LessonCompleteScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: colors.tertiaryContainer,
                       borderRadius: BorderRadius.circular(32),
+                      border: Border.all(color: colors.outline, width: 3),
                     ),
                     child: const Padding(
                       padding: EdgeInsets.all(24),

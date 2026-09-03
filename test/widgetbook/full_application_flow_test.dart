@@ -1,5 +1,6 @@
 import '../../widgetbook/app_prototype/full_application_flow.dart';
 import '../../widgetbook/app_prototype/prototype_data.dart';
+import 'package:flash_kids/app/presentation/flash_kids_theme.dart';
 import 'package:flash_kids/features/home/presentation/child_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -29,10 +30,7 @@ void main() {
     (tester) async {
       await tester.pumpWidget(
         MaterialApp(
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
-          ),
+          theme: flashKidsTheme(),
           home: const FullApplicationFlow(),
         ),
       );
@@ -67,10 +65,7 @@ void main() {
       MediaQuery(
         data: const MediaQueryData(textScaler: TextScaler.linear(2)),
         child: MaterialApp(
-          theme: ThemeData(
-            colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-            useMaterial3: true,
-          ),
+          theme: flashKidsTheme(),
           home: const FullApplicationFlow(),
         ),
       ),
@@ -92,10 +87,7 @@ void main() {
 
     await tester.pumpWidget(
       MaterialApp(
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
+        theme: flashKidsTheme(),
         home: ChildHomeScreen(
           modules: prototypeModules,
           onModuleSelected: (_) {},
@@ -123,10 +115,7 @@ void main() {
   ) async {
     await tester.pumpWidget(
       MaterialApp(
-        theme: ThemeData(
-          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-          useMaterial3: true,
-        ),
+        theme: flashKidsTheme(),
         home: const FullApplicationFlow(),
       ),
     );

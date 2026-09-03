@@ -1,10 +1,50 @@
 import 'package:flash_kids/app/presentation/kid_answer_control.dart';
 import 'package:flash_kids/app/presentation/kid_destination_card.dart';
 import 'package:flash_kids/app/presentation/kid_feedback_panel.dart';
+import 'package:flash_kids/app/presentation/flash_kids_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  test('uses the approved FlashKids palette for Material color roles', () {
+    final colors = flashKidsTheme().colorScheme;
+
+    expect(colors.primary, const Color(0xFFDF301C));
+    expect(colors.secondary, const Color(0xFFFF9100));
+    expect(colors.surface, const Color(0xFFFFF1D1));
+    expect(colors.tertiary, const Color(0xFF00B7CD));
+    expect(flashKidsTheme().scaffoldBackgroundColor, const Color(0xFFFFF1D1));
+    expect(
+      (flashKidsTheme().cardTheme.shape! as RoundedRectangleBorder).side,
+      const BorderSide(color: Color(0xFF85736A), width: 3),
+    );
+  });
+
+  testWidgets('destination card has a bold outline', (tester) async {
+    await tester.pumpWidget(
+      _TestApp(
+        child: KidDestinationCard(
+          state: const KidDestinationCardViewState(
+            label: 'Chữ cái',
+            detail: 'A, B, C',
+            icon: Icons.abc_rounded,
+            semanticsLabel: 'Chữ cái. A, B, C',
+          ),
+          onPressed: () {},
+        ),
+      ),
+    );
+
+    final material = tester.widget<Material>(
+      find.descendant(
+        of: find.byType(KidDestinationCard),
+        matching: find.byType(Material),
+      ),
+    );
+    final shape = material.shape! as RoundedRectangleBorder;
+    expect(shape.side.width, 3);
+  });
+
   testWidgets('destination card exposes one action and invokes it', (
     tester,
   ) async {
@@ -102,6 +142,7 @@ class _TestApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: flashKidsTheme(),
       home: Scaffold(body: Center(child: child)),
     );
   }
