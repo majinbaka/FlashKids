@@ -78,8 +78,8 @@ class ParentOverviewScreen extends StatelessWidget {
                   onTap: onProgress,
                 ),
                 _ParentDestination(
-                  title: 'Cài đặt học tập',
-                  subtitle: 'Âm thanh, giọng nói và nhắc học',
+                  title: 'Cài đặt',
+                  subtitle: 'Hồ sơ bé, chữ, âm thanh và nhắc học',
                   icon: Icons.tune_rounded,
                   onTap: onSettings,
                 ),

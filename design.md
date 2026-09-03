@@ -328,5 +328,8 @@ user (`AGENTS.md` → Conflicts).
   session length and repetition model.
 - Sound design, voice-over language coverage, and whether narration is recorded
   or synthesized.
-- Onboarding, profiles/multiple children, and any monetization surface.
+- Production onboarding, profiles/multiple children, and any monetization
+  surface. The Widgetbook-only local onboarding documented in
+  `docs/widgetbook_executable_spec.md` is approved as a presentation prototype;
+  it neither persists data nor changes production routing.
 - Offline behavior, because no data layer exists yet (`flutter-persistence`).

@@ -32,15 +32,14 @@ flutter run -d chrome -t widgetbook/main.dart
 ```text
 FlashKids
 ├── System
-│   └── Launch
+│   ├── Launch
+│   └── Child onboarding (prototype only)
 ├── Kid Zone (default)
 │   ├── Home
-│   │   ├── Learn
-│   │   │   ├── Tiếng Việt: Chữ cái, Đánh vần, Phát âm, Mini games
-│   │   │   ├── Tiếng Anh: Từ vựng, Phát âm, Mini games
-│   │   │   └── Toán: Cộng, Trừ, Mini games
-│   │   └── Play
-│   │       └── Game Hub (dynamic library)
+│   │   ├── Tiếng Việt: Chữ cái, Đánh vần, Phát âm, Mini games
+│   │   ├── Tiếng Anh: Từ vựng, Phát âm, Mini games
+│   │   ├── Toán: Cộng, Trừ, Mini games
+│   │   └── Mini game → Game Hub (dynamic library)
 │   ├── Module Overview / Activity Selection
 │   ├── Learning Session (configured by skill + activity)
 │   ├── Lesson Complete
@@ -56,22 +55,27 @@ FlashKids
         └── Child Profile
 ```
 
-Home uses two visual groups, **Learn** and **Play**. Learn starts with three
-subject cards (Tiếng Việt, Tiếng Anh, and Toán), then shows that subject's
-activities. This gives the child one mental model: learn a subject or play with
-skills. Individual games never appear on Home. Game Hub owns a data-driven
-library and can later add categories, search, difficulty, and recommendations
-without changing top-level navigation.
+Home presents four visually equal destination cards: Tiếng Việt, Tiếng Anh,
+Toán, and Mini game. Each subject card leads to that subject's activities; the
+Mini game card opens the Game Hub. Individual games never appear on Home. Game
+Hub owns a data-driven library and can later add categories, search, difficulty,
+and recommendations without changing top-level navigation.
 
-First launch is `Launch → Home` in MVP. Onboarding and multi-child profile setup
-remain future decisions and are not implied by this flow.
+In this Widgetbook prototype, first launch is `Launch → Child onboarding → Home`.
+Onboarding asks one question per screen: first an adult enters the child's display
+name, then selects one of the local age bands (`3–5`, `6–7`, or `8–10`). The
+prototype uses that selection only for the current mounted flow to show two
+lesson recommendations. It does not persist the data, create an account, alter
+production routing, or claim adaptive learning. Multi-child setup remains a
+future decision.
 
 ## 3. Screen inventory
 
 | ID | Screen | Area | Single purpose | Entry | Exit | MVP |
 |---|---|---|---|---|---|---|
-| SYS-001 | Launch | System | Prepare and enter the child experience | App launch | Home or recoverable error | Yes |
-| KID-001 | Home | Kid | Choose Learn, Play, Collection, or the quiet parent entry | Launch/result/back | Module, Game Hub, Collection, Gate | Yes |
+| SYS-001 | Launch | System | Prepare and enter the child experience | App launch | Onboarding or recoverable error | Yes |
+| SYS-002 | Child onboarding | System / adult | Ask display name, then age band, to preview recommendations | Launch | Home | Yes |
+| KID-001 | Home | Kid | Choose a recommended lesson, subject, Mini game, or the quiet parent entry | Onboarding/result/back | Learning Session, Module, Game Hub, Gate | Yes |
 | KID-002 | Module Overview | Kid | Choose one activity within a skill | Home | Learning Session or Home | Yes |
 | KID-003 | Learning Session | Kid | Make one learning response | Module/next item | Feedback, next item, result, or exit | Yes |
 | KID-004 | Lesson Complete | Kid | Celebrate effort and choose what happens next | Learning Session | Continue or Home | Yes |
@@ -79,11 +83,11 @@ remain future decisions and are not implied by this flow.
 | KID-006 | Game Detail | Kid | Understand one game and start it | Game Hub | Gameplay or Game Hub | Yes |
 | KID-007 | Gameplay | Kid | Complete one visual game round | Game Detail/next round | Feedback, next round, or result | Yes |
 | KID-008 | Game Result | Kid | Celebrate play and choose replay/hub/home | Gameplay | Replay, Game Hub, or Home | Yes |
-| KID-009 | My Collection | Kid | Browse earned learning items and gentle progress | Home | Home | Yes |
+| KID-009 | My Collection | Kid | Browse earned learning items and gentle progress | Catalogue representative screen | Home | Yes |
 | PAR-001 | Parent Gate | Parent boundary | Verify deliberate adult intent | Quiet Home entry | Parent Overview or Home | Yes |
 | PAR-002 | Parent Overview | Parent | Select a parent task and see a concise summary | Gate/parent detail | Progress, Settings, Profile, or Kid Zone | Yes |
 | PAR-003 | Progress Detail | Parent | Review progress and difficult content | Parent Overview | Parent Overview | Yes |
-| PAR-004 | Learning Settings | Parent | Configure sound, voice, and learning preferences | Parent Overview | Save/back | Yes |
+| PAR-004 | Learning Settings | Parent | Chuyển hồ sơ bé và cấu hình chữ, loại tài khoản, âm thanh, giọng nói, nhắc học | Parent Overview | Save/back | Yes |
 | PAR-005 | Child Profile | Parent | Review or edit child-facing profile data | Parent Overview | Save/back | Phase 2 |
 
 ## 4. Screen contracts and states
@@ -91,8 +95,9 @@ remain future decisions and are not implied by this flow.
 | Screen | Primary action | Main components | Meaningful states |
 |---|---|---|---|
 | Launch | Continue automatically when ready | Brand, mascot, progress shape | loading, recoverable error |
-| Home | Choose a large destination | greeting, mascot, module cards, Play card, Collection, quiet gate entry | first use, returning, loading, content unavailable |
-| Module Overview | Start one activity | skill hero, activity cards, progress shape | populated, loading, empty, content unavailable |
+| Child onboarding | Provide name, then age band | name field, three age-band choices, next/back actions | name step, age step, validation error |
+| Home | Choose a large destination | greeting, mascot, recommended lesson list, four equal destination cards, quiet gate entry | first use, returning, loading, content unavailable |
+| Module Overview | Start one activity | activity cards, progress shape | populated, loading, empty, content unavailable |
 | Learning Session | Answer the current prompt | home/back, progress, visual prompt, audio/speak control when relevant, answer controls, mascot feedback | observe, listening, recording, processing, retry, success, audio unavailable, microphone denied, recognition failed, content unavailable |
 | Lesson Complete | Continue learning | reward art, effort summary, sticker/star acknowledgement | complete, reward reduced-motion variant |
 | Game Hub | Choose a game | featured card, dynamic grid/list, optional future category row | populated, loading, empty/no games, content unavailable |
@@ -103,7 +108,7 @@ remain future decisions and are not implied by this flow.
 | Parent Gate | Complete the adult challenge | three-second hold affordance, written arithmetic challenge, cancel | idle, holding, challenge, retry |
 | Parent Overview | Choose a parent task | learning summary, progress rows, difficult content, settings/profile entries | populated, loading, no activity yet, unavailable |
 | Progress Detail | Review one skill | range summary, mastery rows, difficult items | populated, empty, loading, unavailable |
-| Learning Settings | Save preferences | accessible form controls | loaded, saving, saved, save error |
+| Learning Settings | Chọn hồ sơ bé hoặc lưu tuỳ chọn | bộ chọn hồ sơ, cỡ chữ, loại tài khoản, điều khiển âm thanh dễ truy cập | loaded, saving, saved, save error |
 | Child Profile | Save profile | name/avatar/age-band controls | loaded, validation error, saving, save error |
 
 Every Kid Zone screen keeps Home/back in a predictable position, uses visible
@@ -126,11 +131,11 @@ with real child usability and accessibility testing before production release.
 
 ```mermaid
 flowchart LR
-  Launch --> Home
+  Launch --> Onboarding[Child onboarding]
   Launch -->|recoverable error| Launch
+  Onboarding -->|name, then age band| Home
   Home --> Module[Module Overview]
   Home --> Hub[Game Hub]
-  Home --> Collection
   Home --> Gate[Parent Gate]
 ```
 
@@ -187,7 +192,7 @@ skill; a new game changes neither Home nor the navigation graph.
 
 ```mermaid
 flowchart LR
-  Home --> Collection --> Home
+  Collection --> Home
   Home --> Gate[Hold 3 seconds]
   Gate --> Challenge[Written arithmetic challenge]
   Challenge -->|retry| Challenge
@@ -205,7 +210,8 @@ flowchart LR
 
 ```mermaid
 flowchart TD
-  Launch --> Home
+  Launch --> Onboarding
+  Onboarding --> Home
   Home --> Module
   Module --> Session
   Session --> LessonResult
@@ -218,7 +224,6 @@ flowchart TD
   GameResult --> Gameplay
   GameResult --> GameHub
   GameResult --> Home
-  Home --> Collection
   Collection --> Home
   Home --> ParentGate
   ParentGate --> ParentOverview
@@ -256,7 +261,8 @@ to shared code only after at least two real screens need the same stable concept
 
 ### MVP
 
-- Launch, Home, the three subject entries, shared activity/session/result shells.
+- Launch, local-only child onboarding, Home, the three subject entries, shared
+  activity/session/result shells.
 - Alphabet, pronunciation, vocabulary, spelling, addition, and subtraction
   configurations using sample content.
 - Game Hub, one reusable game flow, Collection, Parent Gate, Parent Overview,
@@ -271,10 +277,11 @@ to shared code only after at least two real screens need the same stable concept
 
 ### Future
 
-- Game search/difficulty, age-based recommendations, adaptive learning,
-  multiple children, offline behavior, real audio/speech services, persistence,
-  synchronization, and localized content. These are extension points, not
-  behavior claimed by the current prototype.
+- Game search/difficulty, adaptive learning, multiple children, offline behavior,
+  real audio/speech services, persistence, synchronization, and localized
+  content. These are extension points, not behavior claimed by the current
+  prototype. The implemented age-band recommendations are fixed local sample
+  mappings, not adaptive learning.
 
 ## 9. Implemented catalogue scope
 
@@ -283,7 +290,8 @@ The catalogue currently provides:
 - component samples for large actions, destinations, answers, and feedback;
 - isolated representative Home, Learning Session, and empty Game Hub states;
 - one interactive `App Prototype / Full Application Flow` with fresh local UI
-  state on every mount;
+  state on every mount, including name/age-band onboarding and fixed local lesson
+  recommendations;
 - portrait/landscape viewport and text-scale controls, using the production
   Material 3 seed.
 

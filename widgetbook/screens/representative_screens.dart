@@ -14,7 +14,6 @@ class HomeScreenStory extends StatelessWidget {
       modules: prototypeModules,
       onModuleSelected: (_) {},
       onGames: () {},
-      onCollection: () {},
       onParentArea: () {},
     );
   }

@@ -53,6 +53,41 @@ void main() {
     },
   );
 
+  testWidgets('onboards a child and opens an age-appropriate lesson', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(theme: flashKidsTheme(), home: const FullApplicationFlow()),
+    );
+
+    await tester.pump();
+    await tester.pump(const Duration(seconds: 3, milliseconds: 1));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Tiếp tục'));
+    await tester.pump();
+    expect(find.text('Hãy nhập tên của bé'), findsOneWidget);
+    expect(find.text('Bé thuộc khoảng tuổi nào?'), findsNothing);
+
+    await tester.enterText(find.byType(TextField), 'Lan');
+    await tester.tap(find.text('Tiếp tục'));
+    await tester.pump();
+    expect(find.text('Bé thuộc khoảng tuổi nào?'), findsOneWidget);
+    expect(find.text('Tên của bé'), findsNothing);
+    await tester.ensureVisible(find.text('8–10 tuổi'));
+    await tester.tap(find.text('8–10 tuổi'));
+    await tester.ensureVisible(find.text('Xem bài học phù hợp'));
+    await tester.tap(find.text('Xem bài học phù hợp'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Chào Lan'), findsOneWidget);
+    expect(find.text('Phát âm tiếng Anh'), findsOneWidget);
+
+    await tester.tap(find.text('Phát âm tiếng Anh'));
+    await tester.pump();
+    expect(find.text('Nghe rồi nói theo'), findsOneWidget);
+  });
+
   testWidgets('home remains usable at two hundred percent text scale', (
     tester,
   ) async {
@@ -87,22 +122,18 @@ void main() {
           modules: prototypeModules,
           onModuleSelected: (_) {},
           onGames: () {},
-          onCollection: () {},
           onParentArea: () {},
         ),
       ),
     );
 
-    for (final label in [
-      'Tiếng Việt',
-      'Tiếng Anh',
-      'Toán',
-      'Mini game',
-      'Bộ sưu tập',
-    ]) {
+    for (final label in ['Tiếng Việt', 'Tiếng Anh', 'Toán', 'Mini game']) {
       expect(find.text(label), findsOneWidget);
       expect(tester.getRect(find.text(label)).bottom, lessThanOrEqualTo(390));
     }
+    expect(find.text('Bộ sưu tập'), findsNothing);
+    expect(find.text('HỌC'), findsNothing);
+    expect(find.text('CHƠI'), findsNothing);
   });
 
   testWidgets('keeps subject labels right-aligned and learning cards minimal', (
@@ -127,15 +158,66 @@ void main() {
     await tester.tap(subjectLabel);
     await tester.pump();
 
+    expect(find.text('Chữ cái, đánh vần'), findsNothing);
     expect(find.text('Nhận biết chữ cái'), findsNothing);
     expect(find.byIcon(Icons.abc_rounded), findsNothing);
     expect(find.byIcon(Icons.arrow_forward_rounded), findsNothing);
     expect(find.text('Chữ cái'), findsOneWidget);
+  });
+
+  testWidgets('lets a parent change settings and switch the active child', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(theme: flashKidsTheme(), home: const FullApplicationFlow()),
+    );
+
+    await _finishLaunch(tester);
+    await tester.scrollUntilVisible(
+      find.text('Phụ huynh'),
+      300,
+      scrollable: find.byType(Scrollable),
+    );
+    await tester.tap(find.text('Phụ huynh'));
+    await tester.pump();
+
+    final gate = await tester.startGesture(
+      tester.getCenter(find.text('Nhấn và giữ')),
+    );
+    await tester.pump(const Duration(seconds: 3, milliseconds: 1));
+    await gate.up();
+    await tester.pump();
+    await tester.tap(find.text('7'));
+    await tester.pump();
+    await tester.tap(find.text('Cài đặt'));
+    await tester.pump();
+
+    expect(find.text('Tài khoản đang dùng'), findsOneWidget);
+    expect(find.text('Cỡ chữ'), findsOneWidget);
+    expect(find.text('Loại tài khoản'), findsOneWidget);
+    expect(find.text('Âm thanh hướng dẫn'), findsOneWidget);
+
+    await tester.tap(find.text('An'));
+    await tester.pump();
+
+    await tester.tap(find.byTooltip('Quay lại tổng quan phụ huynh'));
+    await tester.pump();
+    await tester.tap(find.text('Về Kid Zone'));
+    await tester.pump();
+    expect(find.text('Chào An'), findsOneWidget);
   });
 }
 
 Future<void> _finishLaunch(WidgetTester tester) async {
   await tester.pump();
   await tester.pump(const Duration(seconds: 3, milliseconds: 1));
+  await tester.pumpAndSettle();
+  await tester.enterText(find.byType(TextField), 'Minh');
+  await tester.tap(find.text('Tiếp tục'));
+  await tester.pumpAndSettle();
+  await tester.ensureVisible(find.text('6–7 tuổi'));
+  await tester.tap(find.text('6–7 tuổi'));
+  await tester.ensureVisible(find.text('Xem bài học phù hợp'));
+  await tester.tap(find.text('Xem bài học phù hợp'));
   await tester.pumpAndSettle();
 }

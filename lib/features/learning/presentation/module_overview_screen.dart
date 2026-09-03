@@ -22,8 +22,6 @@ class LearningActivitySummary {
 class ModuleOverviewScreen extends StatelessWidget {
   const ModuleOverviewScreen({
     required this.title,
-    required this.subtitle,
-    required this.icon,
     required this.activities,
     required this.onActivitySelected,
     required this.onBack,
@@ -32,8 +30,6 @@ class ModuleOverviewScreen extends StatelessWidget {
   });
 
   final String title;
-  final String subtitle;
-  final IconData icon;
   final List<LearningActivitySummary> activities;
   final ValueChanged<LearningActivitySummary> onActivitySelected;
   final VoidCallback onBack;
@@ -41,7 +37,6 @@ class ModuleOverviewScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
     return KidZoneScaffold(
       title: title,
       onBack: onBack,
@@ -52,30 +47,6 @@ class ModuleOverviewScreen extends StatelessWidget {
           child: ListView(
             padding: const EdgeInsets.fromLTRB(24, 16, 24, 32),
             children: [
-              DecoratedBox(
-                decoration: BoxDecoration(
-                  color: colors.tertiaryContainer,
-                  borderRadius: BorderRadius.circular(32),
-                  border: Border.all(color: colors.outline, width: 3),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.all(24),
-                  child: Row(
-                    children: [
-                      Icon(icon, size: 64, color: colors.onTertiaryContainer),
-                      const SizedBox(width: 24),
-                      Expanded(
-                        child: Text(
-                          subtitle,
-                          style: Theme.of(context).textTheme.headlineSmall
-                              ?.copyWith(fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 24),
               Text(
                 'Chọn cách học',
                 style: Theme.of(

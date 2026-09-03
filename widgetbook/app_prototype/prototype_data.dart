@@ -1,5 +1,6 @@
 import 'package:flash_kids/features/games/presentation/game_hub_screen.dart';
 import 'package:flash_kids/features/home/presentation/child_home_screen.dart';
+import 'package:flash_kids/features/home/presentation/recommended_lesson_list.dart';
 import 'package:flash_kids/features/learning/presentation/learning_session_screen.dart';
 import 'package:flash_kids/features/learning/presentation/module_overview_screen.dart';
 import 'package:flutter/material.dart';
@@ -71,6 +72,59 @@ const prototypeGames = <GameSummary>[
     icon: Icons.calculate_rounded,
   ),
 ];
+
+List<LessonRecommendation> recommendationsForAgeBand(String ageBand) {
+  return switch (ageBand) {
+    '3–5 tuổi' => const [
+      LessonRecommendation(
+        moduleId: 'vietnamese',
+        activityId: 'vietnamese-alphabet',
+        title: 'Làm quen chữ cái',
+        description: 'Nhìn hình và chọn chữ',
+        icon: Icons.abc_rounded,
+      ),
+      LessonRecommendation(
+        moduleId: 'math',
+        activityId: 'math-addition',
+        title: 'Đếm và cộng',
+        description: 'Gộp các nhóm đồ vật',
+        icon: Icons.add_circle_rounded,
+      ),
+    ],
+    '6–7 tuổi' => const [
+      LessonRecommendation(
+        moduleId: 'vietnamese',
+        activityId: 'vietnamese-spelling',
+        title: 'Ghép vần',
+        description: 'Điền chữ còn thiếu',
+        icon: Icons.extension_rounded,
+      ),
+      LessonRecommendation(
+        moduleId: 'english',
+        activityId: 'english-vocabulary',
+        title: 'Từ vựng tiếng Anh',
+        description: 'Học từ bằng hình ảnh',
+        icon: Icons.image_rounded,
+      ),
+    ],
+    _ => const [
+      LessonRecommendation(
+        moduleId: 'english',
+        activityId: 'english-pronunciation',
+        title: 'Phát âm tiếng Anh',
+        description: 'Nghe mẫu rồi nói theo',
+        icon: Icons.record_voice_over_rounded,
+      ),
+      LessonRecommendation(
+        moduleId: 'math',
+        activityId: 'math-subtraction',
+        title: 'Phép trừ',
+        description: 'Xem còn lại bao nhiêu',
+        icon: Icons.remove_circle_rounded,
+      ),
+    ],
+  };
+}
 
 List<LearningActivitySummary> activitiesFor(String moduleId) {
   return switch (moduleId) {

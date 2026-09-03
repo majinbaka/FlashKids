@@ -4,6 +4,8 @@ import 'package:flash_kids/features/games/presentation/game_hub_screen.dart';
 import 'package:flash_kids/features/games/presentation/game_result_screen.dart';
 import 'package:flash_kids/features/games/presentation/gameplay_screen.dart';
 import 'package:flash_kids/features/home/presentation/child_home_screen.dart';
+import 'package:flash_kids/features/home/presentation/child_onboarding_screen.dart';
+import 'package:flash_kids/features/home/presentation/recommended_lesson_list.dart';
 import 'package:flash_kids/features/home/presentation/launch_screen.dart';
 import 'package:flash_kids/features/learning/presentation/learning_session_screen.dart';
 import 'package:flash_kids/features/learning/presentation/lesson_complete_screen.dart';
@@ -19,6 +21,7 @@ import 'prototype_data.dart';
 
 enum PrototypePage {
   launch,
+  onboarding,
   home,
   module,
   learning,
@@ -51,6 +54,18 @@ class _FullApplicationFlowState extends State<FullApplicationFlow> {
   GameSummary _game = prototypeGames.first;
   LearningFeedback _learningFeedback = LearningFeedback.none;
   bool _gameFeedback = false;
+  LearningSettingsViewState _settings = const LearningSettingsViewState(
+    children: [
+      ChildAccountSummary(id: 'minh', name: 'Minh', ageBand: '5–7 tuổi'),
+      ChildAccountSummary(id: 'an', name: 'An', ageBand: '8–10 tuổi'),
+    ],
+    selectedChildId: 'minh',
+    fontSize: FontSizePreference.standard,
+    accountPlan: AccountPlan.family,
+    soundEnabled: true,
+    voiceEnabled: true,
+    gentleReminder: false,
+  );
 
   void _go(PrototypePage page) => setState(() => _page = page);
 
@@ -79,6 +94,46 @@ class _FullApplicationFlowState extends State<FullApplicationFlow> {
     });
   }
 
+  void _completeOnboarding(ChildOnboardingResult child) {
+    setState(() {
+      final selectedChild = _settings.selectedChild;
+      _settings = LearningSettingsViewState(
+        children: [
+          for (final account in _settings.children)
+            account.id == selectedChild.id
+                ? ChildAccountSummary(
+                    id: account.id,
+                    name: child.name,
+                    ageBand: child.ageBand,
+                  )
+                : account,
+        ],
+        selectedChildId: _settings.selectedChildId,
+        fontSize: _settings.fontSize,
+        accountPlan: _settings.accountPlan,
+        soundEnabled: _settings.soundEnabled,
+        voiceEnabled: _settings.voiceEnabled,
+        gentleReminder: _settings.gentleReminder,
+      );
+      _page = PrototypePage.home;
+    });
+  }
+
+  void _openRecommendation(LessonRecommendation recommendation) {
+    final module = prototypeModules.firstWhere(
+      (module) => module.id == recommendation.moduleId,
+    );
+    final activity = activitiesFor(
+      module.id,
+    ).firstWhere((activity) => activity.id == recommendation.activityId);
+    setState(() {
+      _module = module;
+      _activity = activity;
+      _learningFeedback = LearningFeedback.none;
+      _page = PrototypePage.learning;
+    });
+  }
+
   void _openGame(GameSummary game) {
     setState(() {
       _game = game;
@@ -87,95 +142,112 @@ class _FullApplicationFlowState extends State<FullApplicationFlow> {
     });
   }
 
+  void _updateSettings(LearningSettingsViewState value) {
+    setState(() => _settings = value);
+  }
+
   @override
   Widget build(BuildContext context) {
-    return switch (_page) {
-      PrototypePage.launch => LaunchScreen(
-        onContinue: () => _go(PrototypePage.home),
-      ),
-      PrototypePage.home => ChildHomeScreen(
-        modules: prototypeModules,
-        onModuleSelected: _openModule,
-        onGames: () => _go(PrototypePage.gameHub),
-        onCollection: () => _go(PrototypePage.collection),
-        onParentArea: () => _go(PrototypePage.parentGate),
-      ),
-      PrototypePage.module => ModuleOverviewScreen(
-        title: _module.label,
-        subtitle: _module.detail,
-        icon: _module.icon,
-        activities: activitiesFor(_module.id),
-        onActivitySelected: _openActivity,
-        onBack: _goHome,
-        onHome: _goHome,
-      ),
-      PrototypePage.learning => LearningSessionScreen(
-        state: sessionFor(_module, _activity, _learningFeedback),
-        onAnswer: (_) =>
-            setState(() => _learningFeedback = LearningFeedback.readyForNext),
-        onNext: () => _go(PrototypePage.lessonComplete),
-        onBack: () => _go(PrototypePage.module),
-        onHome: _goHome,
-      ),
-      PrototypePage.lessonComplete => LessonCompleteScreen(
-        moduleName: _activity.label,
-        onContinue: () => _go(PrototypePage.module),
-        onHome: _goHome,
-      ),
-      PrototypePage.gameHub => GameHubScreen(
-        games: prototypeGames,
-        onGameSelected: _openGame,
-        onBack: _goHome,
-        onHome: _goHome,
-      ),
-      PrototypePage.gameDetail => GameDetailScreen(
-        name: _game.name,
-        skill: _game.skill,
-        icon: _game.icon,
-        onStart: () => _go(PrototypePage.gameplay),
-        onBack: () => _go(PrototypePage.gameHub),
-        onHome: _goHome,
-      ),
-      PrototypePage.gameplay => GameplayScreen(
-        gameName: _game.name,
-        hasFeedback: _gameFeedback,
-        onAnswer: () => setState(() => _gameFeedback = true),
-        onNext: () => _go(PrototypePage.gameResult),
-        onExit: () => _go(PrototypePage.gameDetail),
-        onHome: _goHome,
-      ),
-      PrototypePage.gameResult => GameResultScreen(
-        gameName: _game.name,
-        onReplay: () => setState(() {
-          _gameFeedback = false;
-          _page = PrototypePage.gameplay;
-        }),
-        onGameHub: () => _go(PrototypePage.gameHub),
-        onHome: _goHome,
-      ),
-      PrototypePage.collection => CollectionScreen(
-        onBack: _goHome,
-        onHome: _goHome,
-      ),
-      PrototypePage.parentGate => ParentGateScreen(
-        onVerified: () => _go(PrototypePage.parentOverview),
-        onCancel: _goHome,
-      ),
-      PrototypePage.parentOverview => ParentOverviewScreen(
-        onProgress: () => _go(PrototypePage.parentProgress),
-        onSettings: () => _go(PrototypePage.parentSettings),
-        onProfile: () => _go(PrototypePage.childProfile),
-        onExit: _goHome,
-      ),
-      PrototypePage.parentProgress => ParentProgressScreen(
-        onBack: () => _go(PrototypePage.parentOverview),
-      ),
-      PrototypePage.parentSettings => LearningSettingsScreen(
-        onBack: () => _go(PrototypePage.parentOverview),
-      ),
-      PrototypePage.childProfile => ChildProfileScreen(
-        onBack: () => _go(PrototypePage.parentOverview),
-      ),
-    };
+    final textScaler = _settings.fontSize == FontSizePreference.large
+        ? const TextScaler.linear(1.2)
+        : const TextScaler.linear(1);
+    return MediaQuery(
+      data: MediaQuery.of(context).copyWith(textScaler: textScaler),
+      child: switch (_page) {
+        PrototypePage.launch => LaunchScreen(
+          onContinue: () => _go(PrototypePage.onboarding),
+        ),
+        PrototypePage.onboarding => ChildOnboardingScreen(
+          onComplete: _completeOnboarding,
+        ),
+        PrototypePage.home => ChildHomeScreen(
+          modules: prototypeModules,
+          childName: _settings.selectedChild.name,
+          recommendations: recommendationsForAgeBand(
+            _settings.selectedChild.ageBand,
+          ),
+          onRecommendationSelected: _openRecommendation,
+          onModuleSelected: _openModule,
+          onGames: () => _go(PrototypePage.gameHub),
+          onParentArea: () => _go(PrototypePage.parentGate),
+        ),
+        PrototypePage.module => ModuleOverviewScreen(
+          title: _module.label,
+          activities: activitiesFor(_module.id),
+          onActivitySelected: _openActivity,
+          onBack: _goHome,
+          onHome: _goHome,
+        ),
+        PrototypePage.learning => LearningSessionScreen(
+          state: sessionFor(_module, _activity, _learningFeedback),
+          onAnswer: (_) =>
+              setState(() => _learningFeedback = LearningFeedback.readyForNext),
+          onNext: () => _go(PrototypePage.lessonComplete),
+          onBack: () => _go(PrototypePage.module),
+          onHome: _goHome,
+        ),
+        PrototypePage.lessonComplete => LessonCompleteScreen(
+          moduleName: _activity.label,
+          onContinue: () => _go(PrototypePage.module),
+          onHome: _goHome,
+        ),
+        PrototypePage.gameHub => GameHubScreen(
+          games: prototypeGames,
+          onGameSelected: _openGame,
+          onBack: _goHome,
+          onHome: _goHome,
+        ),
+        PrototypePage.gameDetail => GameDetailScreen(
+          name: _game.name,
+          skill: _game.skill,
+          icon: _game.icon,
+          onStart: () => _go(PrototypePage.gameplay),
+          onBack: () => _go(PrototypePage.gameHub),
+          onHome: _goHome,
+        ),
+        PrototypePage.gameplay => GameplayScreen(
+          gameName: _game.name,
+          hasFeedback: _gameFeedback,
+          onAnswer: () => setState(() => _gameFeedback = true),
+          onNext: () => _go(PrototypePage.gameResult),
+          onExit: () => _go(PrototypePage.gameDetail),
+          onHome: _goHome,
+        ),
+        PrototypePage.gameResult => GameResultScreen(
+          gameName: _game.name,
+          onReplay: () => setState(() {
+            _gameFeedback = false;
+            _page = PrototypePage.gameplay;
+          }),
+          onGameHub: () => _go(PrototypePage.gameHub),
+          onHome: _goHome,
+        ),
+        PrototypePage.collection => CollectionScreen(
+          onBack: _goHome,
+          onHome: _goHome,
+        ),
+        PrototypePage.parentGate => ParentGateScreen(
+          onVerified: () => _go(PrototypePage.parentOverview),
+          onCancel: _goHome,
+        ),
+        PrototypePage.parentOverview => ParentOverviewScreen(
+          onProgress: () => _go(PrototypePage.parentProgress),
+          onSettings: () => _go(PrototypePage.parentSettings),
+          onProfile: () => _go(PrototypePage.childProfile),
+          onExit: _goHome,
+        ),
+        PrototypePage.parentProgress => ParentProgressScreen(
+          onBack: () => _go(PrototypePage.parentOverview),
+        ),
+        PrototypePage.parentSettings => LearningSettingsScreen(
+          state: _settings,
+          onChanged: _updateSettings,
+          onBack: () => _go(PrototypePage.parentOverview),
+        ),
+        PrototypePage.childProfile => ChildProfileScreen(
+          onBack: () => _go(PrototypePage.parentOverview),
+        ),
+      },
+    );
   }
 }

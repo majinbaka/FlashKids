@@ -1,5 +1,9 @@
 import 'package:flash_kids/app/presentation/kid_destination_card.dart';
+import 'package:flash_kids/features/home/presentation/recommended_lesson_list.dart';
 import 'package:flutter/material.dart';
+
+const _gamesBackgroundAsset =
+    'assets/images/subjects/games-subject-background.png';
 
 @immutable
 class LearningModuleSummary {
@@ -23,16 +27,20 @@ class ChildHomeScreen extends StatelessWidget {
     required this.modules,
     required this.onModuleSelected,
     required this.onGames,
-    required this.onCollection,
     required this.onParentArea,
+    this.childName = 'bạn nhỏ',
+    this.recommendations = const [],
+    this.onRecommendationSelected,
     super.key,
   });
 
   final List<LearningModuleSummary> modules;
   final ValueChanged<LearningModuleSummary> onModuleSelected;
   final VoidCallback onGames;
-  final VoidCallback onCollection;
   final VoidCallback onParentArea;
+  final String childName;
+  final List<LessonRecommendation> recommendations;
+  final ValueChanged<LessonRecommendation>? onRecommendationSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -51,16 +59,18 @@ class ChildHomeScreen extends StatelessWidget {
                 return isLandscape
                     ? _LandscapeHomeContent(
                         modules: modules,
+                        childName: childName,
                         onModuleSelected: onModuleSelected,
                         onGames: onGames,
-                        onCollection: onCollection,
                         onParentArea: onParentArea,
                       )
                     : _PortraitHomeContent(
                         modules: modules,
+                        childName: childName,
+                        recommendations: recommendations,
+                        onRecommendationSelected: onRecommendationSelected,
                         onModuleSelected: onModuleSelected,
                         onGames: onGames,
-                        onCollection: onCollection,
                         onParentArea: onParentArea,
                       );
               },
@@ -75,16 +85,20 @@ class ChildHomeScreen extends StatelessWidget {
 class _PortraitHomeContent extends StatelessWidget {
   const _PortraitHomeContent({
     required this.modules,
+    required this.childName,
+    required this.recommendations,
+    required this.onRecommendationSelected,
     required this.onModuleSelected,
     required this.onGames,
-    required this.onCollection,
     required this.onParentArea,
   });
 
   final List<LearningModuleSummary> modules;
+  final String childName;
+  final List<LessonRecommendation> recommendations;
+  final ValueChanged<LessonRecommendation>? onRecommendationSelected;
   final ValueChanged<LearningModuleSummary> onModuleSelected;
   final VoidCallback onGames;
-  final VoidCallback onCollection;
   final VoidCallback onParentArea;
 
   @override
@@ -103,7 +117,7 @@ class _PortraitHomeContent extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Chào bạn nhỏ',
+                        'Chào $childName',
                         style: Theme.of(context).textTheme.headlineMedium
                             ?.copyWith(fontWeight: FontWeight.bold),
                       ),
@@ -126,18 +140,16 @@ class _PortraitHomeContent extends StatelessWidget {
             ),
           ),
         ),
-        SliverPadding(
-          padding: const EdgeInsets.symmetric(horizontal: 24),
-          sliver: SliverToBoxAdapter(
-            child: Text(
-              'HỌC',
-              style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                color: colors.tertiary,
-                fontWeight: FontWeight.bold,
+        if (onRecommendationSelected != null && recommendations.isNotEmpty)
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(24, 16, 24, 0),
+            sliver: SliverToBoxAdapter(
+              child: RecommendedLessonList(
+                recommendations: recommendations,
+                onSelected: onRecommendationSelected!,
               ),
             ),
           ),
-        ),
         SliverPadding(
           padding: const EdgeInsets.all(24),
           sliver: SliverToBoxAdapter(
@@ -167,56 +179,25 @@ class _PortraitHomeContent extends StatelessWidget {
                           variant: KidDestinationCardVariant.prominent,
                         ),
                       ),
+                    SizedBox(
+                      width: cardWidth,
+                      child: KidDestinationCard(
+                        state: const KidDestinationCardViewState(
+                          label: 'Mini game',
+                          detail: 'Chọn trò chơi',
+                          icon: Icons.sports_esports_rounded,
+                          backgroundAsset: _gamesBackgroundAsset,
+                          semanticsLabel: 'Mini game',
+                          showIcon: false,
+                          showDetail: false,
+                        ),
+                        onPressed: onGames,
+                        variant: KidDestinationCardVariant.prominent,
+                      ),
+                    ),
                   ],
                 );
               },
-            ),
-          ),
-        ),
-        SliverPadding(
-          padding: const EdgeInsets.fromLTRB(24, 0, 24, 8),
-          sliver: SliverToBoxAdapter(
-            child: Text(
-              'CHƠI',
-              style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                color: colors.tertiary,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-        ),
-        SliverPadding(
-          padding: const EdgeInsets.fromLTRB(24, 8, 24, 32),
-          sliver: SliverToBoxAdapter(
-            child: Wrap(
-              spacing: 16,
-              runSpacing: 16,
-              children: [
-                SizedBox(
-                  width: 240,
-                  child: KidDestinationCard(
-                    state: const KidDestinationCardViewState(
-                      label: 'Mini game',
-                      detail: 'Chọn trò chơi',
-                      icon: Icons.sports_esports_rounded,
-                      semanticsLabel: 'Mini game. Chọn trò chơi',
-                    ),
-                    onPressed: onGames,
-                  ),
-                ),
-                SizedBox(
-                  width: 240,
-                  child: KidDestinationCard(
-                    state: const KidDestinationCardViewState(
-                      label: 'Bộ sưu tập',
-                      detail: 'Xem sticker',
-                      icon: Icons.auto_awesome_rounded,
-                      semanticsLabel: 'Bộ sưu tập. Xem sticker',
-                    ),
-                    onPressed: onCollection,
-                  ),
-                ),
-              ],
             ),
           ),
         ),
@@ -248,16 +229,16 @@ class _PortraitHomeContent extends StatelessWidget {
 class _LandscapeHomeContent extends StatelessWidget {
   const _LandscapeHomeContent({
     required this.modules,
+    required this.childName,
     required this.onModuleSelected,
     required this.onGames,
-    required this.onCollection,
     required this.onParentArea,
   });
 
   final List<LearningModuleSummary> modules;
+  final String childName;
   final ValueChanged<LearningModuleSummary> onModuleSelected;
   final VoidCallback onGames;
-  final VoidCallback onCollection;
   final VoidCallback onParentArea;
 
   @override
@@ -279,7 +260,7 @@ class _LandscapeHomeContent extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Chào bạn nhỏ',
+                            'Chào $childName',
                             style: Theme.of(context).textTheme.headlineSmall
                                 ?.copyWith(fontWeight: FontWeight.bold),
                           ),
@@ -297,100 +278,60 @@ class _LandscapeHomeContent extends StatelessWidget {
                         height: 64,
                       ),
                     ),
+                    Semantics(
+                      label: 'Mở cổng dành cho phụ huynh',
+                      button: true,
+                      child: TextButton.icon(
+                        onPressed: onParentArea,
+                        style: TextButton.styleFrom(
+                          foregroundColor: colors.onInverseSurface,
+                        ),
+                        icon: const Icon(Icons.family_restroom_rounded),
+                        label: const Text('Phụ huynh'),
+                      ),
+                    ),
                   ],
-                ),
-                const SizedBox(height: 8),
-                Text(
-                  'HỌC',
-                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    color: colors.tertiary,
-                    fontWeight: FontWeight.bold,
-                  ),
                 ),
                 const SizedBox(height: 8),
                 Expanded(
                   child: Row(
                     children: [
-                      for (var index = 0; index < modules.length; index++) ...[
+                      for (
+                        var index = 0;
+                        index < modules.length + 1;
+                        index++
+                      ) ...[
                         Expanded(
                           child: KidDestinationCard(
-                            state: KidDestinationCardViewState(
-                              label: modules[index].label,
-                              detail: modules[index].detail,
-                              icon: modules[index].icon,
-                              backgroundAsset: modules[index].backgroundAsset,
-                              semanticsLabel: modules[index].label,
-                              showIcon: false,
-                              showDetail: false,
-                            ),
-                            onPressed: () => onModuleSelected(modules[index]),
+                            state: index < modules.length
+                                ? KidDestinationCardViewState(
+                                    label: modules[index].label,
+                                    detail: modules[index].detail,
+                                    icon: modules[index].icon,
+                                    backgroundAsset:
+                                        modules[index].backgroundAsset,
+                                    semanticsLabel: modules[index].label,
+                                    showIcon: false,
+                                    showDetail: false,
+                                  )
+                                : const KidDestinationCardViewState(
+                                    label: 'Mini game',
+                                    detail: 'Chọn trò chơi',
+                                    icon: Icons.sports_esports_rounded,
+                                    backgroundAsset: _gamesBackgroundAsset,
+                                    semanticsLabel: 'Mini game',
+                                    showIcon: false,
+                                    showDetail: false,
+                                  ),
+                            onPressed: index < modules.length
+                                ? () => onModuleSelected(modules[index])
+                                : onGames,
                             variant: KidDestinationCardVariant.prominent,
                           ),
                         ),
-                        if (index < modules.length - 1)
-                          const SizedBox(width: 16),
+                        if (index < modules.length) const SizedBox(width: 16),
                       ],
                     ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 24),
-          SizedBox(
-            width: 200,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              children: [
-                Text(
-                  'CHƠI',
-                  style: Theme.of(context).textTheme.labelLarge?.copyWith(
-                    color: colors.tertiary,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Expanded(
-                  child: KidDestinationCard(
-                    state: const KidDestinationCardViewState(
-                      label: 'Mini game',
-                      detail: 'Chọn trò chơi',
-                      icon: Icons.sports_esports_rounded,
-                      semanticsLabel: 'Mini game. Chọn trò chơi',
-                      showIcon: false,
-                      showDetail: false,
-                    ),
-                    onPressed: onGames,
-                  ),
-                ),
-                const SizedBox(height: 16),
-                Expanded(
-                  child: KidDestinationCard(
-                    state: const KidDestinationCardViewState(
-                      label: 'Bộ sưu tập',
-                      detail: 'Xem sticker',
-                      icon: Icons.auto_awesome_rounded,
-                      semanticsLabel: 'Bộ sưu tập. Xem sticker',
-                      showIcon: false,
-                      showDetail: false,
-                    ),
-                    onPressed: onCollection,
-                  ),
-                ),
-                const SizedBox(height: 8),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: Semantics(
-                    label: 'Mở cổng dành cho phụ huynh',
-                    button: true,
-                  child: TextButton.icon(
-                    onPressed: onParentArea,
-                    style: TextButton.styleFrom(
-                      foregroundColor: colors.onInverseSurface,
-                    ),
-                    icon: const Icon(Icons.family_restroom_rounded),
-                      label: const Text('Phụ huynh'),
-                    ),
                   ),
                 ),
               ],
