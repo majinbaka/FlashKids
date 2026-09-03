@@ -58,7 +58,7 @@ class KidFeedbackPanel extends StatelessWidget {
                       (prominent
                               ? Theme.of(context).textTheme.headlineSmall
                               : Theme.of(context).textTheme.titleLarge)
-                          ?.copyWith(fontWeight: FontWeight.w900),
+                          ?.copyWith(fontWeight: FontWeight.bold),
                 ),
               ),
             ],

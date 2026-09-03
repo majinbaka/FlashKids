@@ -40,7 +40,7 @@ class GameplayScreen extends StatelessWidget {
                 'Tìm đáp án là 5',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                  fontWeight: FontWeight.w900,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 24),

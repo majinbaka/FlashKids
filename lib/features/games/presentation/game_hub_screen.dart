@@ -87,7 +87,7 @@ class _EmptyGameLibrary extends StatelessWidget {
             textAlign: TextAlign.center,
             style: Theme.of(
               context,
-            ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w900),
+            ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
           ),
           const SizedBox(height: 8),
           const Text('Mình quay lại sau nhé', textAlign: TextAlign.center),

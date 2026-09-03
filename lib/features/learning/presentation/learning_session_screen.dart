@@ -69,7 +69,7 @@ class LearningSessionScreen extends StatelessWidget {
                 state.instruction,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w900,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 24),
@@ -96,14 +96,14 @@ class LearningSessionScreen extends StatelessWidget {
                               state.visual,
                               textAlign: TextAlign.center,
                               style: Theme.of(context).textTheme.displayLarge
-                                  ?.copyWith(fontWeight: FontWeight.w900),
+                                  ?.copyWith(fontWeight: FontWeight.bold),
                             ),
                           const SizedBox(height: 16),
                           Text(
                             state.prompt,
                             textAlign: TextAlign.center,
                             style: Theme.of(context).textTheme.headlineMedium
-                                ?.copyWith(fontWeight: FontWeight.w900),
+                                ?.copyWith(fontWeight: FontWeight.bold),
                           ),
                           if (state.showAudio || state.showMicrophone) ...[
                             const SizedBox(height: 24),

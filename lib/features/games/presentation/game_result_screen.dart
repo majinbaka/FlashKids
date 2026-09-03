@@ -39,7 +39,7 @@ class GameResultScreen extends StatelessWidget {
                   'Bạn đã chơi $gameName',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 32),

@@ -55,7 +55,7 @@ class ChildHomeScreen extends StatelessWidget {
                           Text(
                             'Chào bạn nhỏ',
                             style: Theme.of(context).textTheme.headlineMedium
-                                ?.copyWith(fontWeight: FontWeight.w900),
+                                ?.copyWith(fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(height: 8),
                           Text(
@@ -83,7 +83,7 @@ class ChildHomeScreen extends StatelessWidget {
                   'HỌC',
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
                     color: colors.primary,
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),
@@ -130,7 +130,7 @@ class ChildHomeScreen extends StatelessWidget {
                   'CHƠI',
                   style: Theme.of(context).textTheme.labelLarge?.copyWith(
                     color: colors.primary,
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
               ),

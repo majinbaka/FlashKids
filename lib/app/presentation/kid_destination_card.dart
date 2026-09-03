@@ -110,7 +110,7 @@ class _VerticalDestinationCard extends StatelessWidget {
                         state.label,
                         textAlign: TextAlign.right,
                         style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.w900,
+                          fontWeight: FontWeight.bold,
                           color: colors.onSurface,
                         ),
                       ),
@@ -167,7 +167,7 @@ class _HorizontalDestinationCard extends StatelessWidget {
                               ? TextAlign.left
                               : TextAlign.center,
                           style: Theme.of(context).textTheme.titleLarge
-                              ?.copyWith(fontWeight: FontWeight.w800),
+                              ?.copyWith(fontWeight: FontWeight.bold),
                         ),
                         if (state.showDetail) ...[
                           const SizedBox(height: 4),

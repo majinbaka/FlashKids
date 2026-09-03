@@ -28,7 +28,7 @@ class LaunchScreen extends StatelessWidget {
                 Text(
                   'FlashKids',
                   style: Theme.of(context).textTheme.displaySmall?.copyWith(
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 8),

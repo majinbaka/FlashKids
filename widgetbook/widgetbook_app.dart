@@ -1,4 +1,5 @@
 import 'package:flash_kids/features/learning/presentation/learning_session_screen.dart';
+import 'package:flash_kids/app/presentation/flash_kids_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 
@@ -15,10 +16,7 @@ class FlashKidsWidgetbook extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = ThemeData(
-      colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-      useMaterial3: true,
-    );
+    final theme = flashKidsTheme();
     return Widgetbook.material(
       directories: [
         WidgetbookCategory(

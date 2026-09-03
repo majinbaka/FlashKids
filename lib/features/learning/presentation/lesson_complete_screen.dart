@@ -38,7 +38,7 @@ class LessonCompleteScreen extends StatelessWidget {
                   'Bạn đã luyện tập $moduleName',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 16),

@@ -49,7 +49,7 @@ class GameDetailScreen extends StatelessWidget {
                   'Nhìn hình và chọn thật nhanh',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                    fontWeight: FontWeight.w900,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
                 const SizedBox(height: 16),

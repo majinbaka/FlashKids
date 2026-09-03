@@ -27,7 +27,7 @@ class CollectionScreen extends StatelessWidget {
               Text(
                 'Những điều mình đã học',
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w900,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 16),
@@ -62,7 +62,7 @@ class CollectionScreen extends StatelessWidget {
               Text(
                 'Sticker của mình',
                 style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                  fontWeight: FontWeight.w900,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 16),
@@ -135,7 +135,7 @@ class _MasteryCard extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: Theme.of(
                     context,
-                  ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
+                  ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 Text(detail, textAlign: TextAlign.center),
                 const SizedBox(height: 8),

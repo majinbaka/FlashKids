@@ -27,7 +27,7 @@ class ParentProgressScreen extends StatelessWidget {
                   'Theo kỹ năng',
                   style: Theme.of(
                     context,
-                  ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+                  ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 16),
                 const _ProgressRow(
@@ -50,7 +50,7 @@ class ParentProgressScreen extends StatelessWidget {
                   'Nội dung cần hỗ trợ',
                   style: Theme.of(
                     context,
-                  ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+                  ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 8),
                 const Card(
@@ -99,7 +99,7 @@ class _ProgressRow extends StatelessWidget {
               label,
               style: Theme.of(
                 context,
-              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w800),
+              ).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 4),
             Text(detail),

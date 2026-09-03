@@ -36,3 +36,8 @@ flutter:
     - assets/images/mascots/
     - assets/images/states/
     - assets/images/subjects/
+  fonts:
+    - family: Baloo2
+      fonts:
+        - asset: assets/fonts/Baloo2.ttf
+          weight: 700

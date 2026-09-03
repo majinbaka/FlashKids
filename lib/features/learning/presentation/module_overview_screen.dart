@@ -67,7 +67,7 @@ class ModuleOverviewScreen extends StatelessWidget {
                         child: Text(
                           subtitle,
                           style: Theme.of(context).textTheme.headlineSmall
-                              ?.copyWith(fontWeight: FontWeight.w800),
+                              ?.copyWith(fontWeight: FontWeight.bold),
                         ),
                       ),
                     ],
@@ -79,7 +79,7 @@ class ModuleOverviewScreen extends StatelessWidget {
                 'Chọn cách học',
                 style: Theme.of(
                   context,
-                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w900),
+                ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 16),
               for (final activity in activities) ...[

@@ -32,7 +32,7 @@ class KidAnswerControl extends StatelessWidget {
         ? Theme.of(context).textTheme.headlineMedium
         : Theme.of(
             context,
-          ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.w900);
+          ).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold);
 
     return Semantics(
       button: true,
