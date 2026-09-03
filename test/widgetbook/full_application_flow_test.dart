@@ -29,14 +29,10 @@ void main() {
     'completes the representative Vietnamese alphabet learning flow',
     (tester) async {
       await tester.pumpWidget(
-        MaterialApp(
-          theme: flashKidsTheme(),
-          home: const FullApplicationFlow(),
-        ),
+        MaterialApp(theme: flashKidsTheme(), home: const FullApplicationFlow()),
       );
 
-      await tester.tap(find.text('Bắt đầu'));
-      await tester.pump();
+      await _finishLaunch(tester);
       expect(find.text('Hôm nay mình học gì?'), findsOneWidget);
 
       await tester.tap(find.text('Tiếng Việt'));
@@ -71,8 +67,7 @@ void main() {
       ),
     );
 
-    await tester.tap(find.text('Bắt đầu'));
-    await tester.pump();
+    await _finishLaunch(tester);
 
     expect(find.bySemanticsLabel('Tiếng Việt'), findsOneWidget);
     expect(tester.takeException(), isNull);
@@ -114,14 +109,10 @@ void main() {
     tester,
   ) async {
     await tester.pumpWidget(
-      MaterialApp(
-        theme: flashKidsTheme(),
-        home: const FullApplicationFlow(),
-      ),
+      MaterialApp(theme: flashKidsTheme(), home: const FullApplicationFlow()),
     );
 
-    await tester.tap(find.text('Bắt đầu'));
-    await tester.pump();
+    await _finishLaunch(tester);
 
     final subjectLabel = find.text('Tiếng Việt');
     final subjectCard = find.ancestor(
@@ -141,4 +132,10 @@ void main() {
     expect(find.byIcon(Icons.arrow_forward_rounded), findsNothing);
     expect(find.text('Chữ cái'), findsOneWidget);
   });
+}
+
+Future<void> _finishLaunch(WidgetTester tester) async {
+  await tester.pump();
+  await tester.pump(const Duration(seconds: 3, milliseconds: 1));
+  await tester.pumpAndSettle();
 }
