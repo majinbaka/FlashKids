@@ -7,6 +7,7 @@ import 'app_prototype/full_application_flow.dart';
 import 'addons/orientation_viewport_addon.dart';
 import 'components/action_components.dart';
 import 'components/answer_control_components.dart';
+import 'components/completion_animation_components.dart';
 import 'components/destination_card_components.dart';
 import 'components/feedback_panel_components.dart';
 import 'screens/representative_screens.dart';
@@ -59,6 +60,55 @@ class FlashKidsWidgetbook extends StatelessWidget {
                   name: 'Encourage, Success',
                   builder: (_) =>
                       const StoryHarness(child: FeedbackPanelComponents()),
+                ),
+              ],
+            ),
+            WidgetbookComponent(
+              name: 'Completion Animation',
+              useCases: [
+                WidgetbookUseCase(
+                  name: 'Sixteen-frame sprite preview',
+                  builder: (context) {
+                    final assetPath = context.knobs.object.dropdown<String>(
+                      label: 'Hiệu ứng',
+                      options: const [
+                        'assets/images/feedback/feedback-complete-confetti-sprites.png',
+                        'assets/images/feedback/feedback-complete-star-sprites.png',
+                        'assets/images/feedback/feedback-complete-trophy-sprites.png',
+                        'assets/images/feedback/feedback-complete-rainbow-sprites.png',
+                        'assets/images/feedback/feedback-complete-dance-sprites.png',
+                      ],
+                      labelBuilder: (assetPath) => switch (assetPath) {
+                        'assets/images/feedback/feedback-complete-confetti-sprites.png' =>
+                          'Tung confetti',
+                        'assets/images/feedback/feedback-complete-star-sprites.png' =>
+                          'Ngôi sao',
+                        'assets/images/feedback/feedback-complete-trophy-sprites.png' =>
+                          'Cúp thành tích',
+                        'assets/images/feedback/feedback-complete-rainbow-sprites.png' =>
+                          'Cầu vồng',
+                        _ => 'Điệu nhảy',
+                      },
+                    );
+                    final autoPlay = context.knobs.boolean(
+                      label: 'Phát tự động',
+                      initialValue: true,
+                    );
+                    final frame = context.knobs.int.slider(
+                      label: 'Khung khi dừng',
+                      initialValue: 0,
+                      min: 0,
+                      max: 15,
+                      divisions: 15,
+                    );
+                    return StoryHarness(
+                      child: CompletionAnimationComponents(
+                        assetPath: assetPath,
+                        autoPlay: autoPlay,
+                        frame: frame,
+                      ),
+                    );
+                  },
                 ),
               ],
             ),
