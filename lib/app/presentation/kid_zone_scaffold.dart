@@ -18,7 +18,7 @@ class KidZoneScaffold extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     return Scaffold(
-      backgroundColor: colors.surfaceContainerLowest,
+      backgroundColor: colors.primaryContainer,
       body: SafeArea(
         child: Column(
           children: [

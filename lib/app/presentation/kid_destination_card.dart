@@ -78,7 +78,9 @@ class _VerticalDestinationCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     return Material(
-      color: prominent ? colors.secondaryContainer : colors.primaryContainer,
+      color: prominent
+          ? colors.tertiaryContainer
+          : colors.surfaceContainerLowest,
       borderRadius: BorderRadius.circular(32),
       clipBehavior: Clip.antiAlias,
       child: InkWell(

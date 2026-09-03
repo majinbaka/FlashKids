@@ -1,5 +1,6 @@
 import '../../widgetbook/app_prototype/full_application_flow.dart';
 import '../../widgetbook/app_prototype/prototype_data.dart';
+import 'package:flash_kids/features/home/presentation/child_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
@@ -81,6 +82,40 @@ void main() {
     expect(find.bySemanticsLabel('Tiếng Việt'), findsOneWidget);
     expect(tester.takeException(), isNull);
     semantics.dispose();
+  });
+
+  testWidgets('shows every home destination in a landscape phone viewport', (
+    tester,
+  ) async {
+    await tester.binding.setSurfaceSize(const Size(844, 390));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: ThemeData(
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: ChildHomeScreen(
+          modules: prototypeModules,
+          onModuleSelected: (_) {},
+          onGames: () {},
+          onCollection: () {},
+          onParentArea: () {},
+        ),
+      ),
+    );
+
+    for (final label in [
+      'Tiếng Việt',
+      'Tiếng Anh',
+      'Toán',
+      'Mini game',
+      'Bộ sưu tập',
+    ]) {
+      expect(find.text(label), findsOneWidget);
+      expect(tester.getRect(find.text(label)).bottom, lessThanOrEqualTo(390));
+    }
   });
 
   testWidgets('keeps subject labels right-aligned and learning cards minimal', (

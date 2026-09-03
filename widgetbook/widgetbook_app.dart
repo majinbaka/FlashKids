@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:widgetbook/widgetbook.dart';
 
 import 'app_prototype/full_application_flow.dart';
+import 'addons/orientation_viewport_addon.dart';
 import 'components/action_components.dart';
 import 'components/answer_control_components.dart';
 import 'components/destination_card_components.dart';
@@ -128,7 +129,7 @@ class FlashKidsWidgetbook extends StatelessWidget {
         MaterialThemeAddon(
           themes: [WidgetbookTheme(name: 'FlashKids Light', data: theme)],
         ),
-        ViewportAddon([
+        OrientationViewportAddon([
           AndroidViewports.samsungGalaxyA50,
           AndroidViewports.smallTablet,
         ]),

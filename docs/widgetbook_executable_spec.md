@@ -284,7 +284,8 @@ The catalogue currently provides:
 - isolated representative Home, Learning Session, and empty Game Hub states;
 - one interactive `App Prototype / Full Application Flow` with fresh local UI
   state on every mount;
-- viewport and text-scale controls, using the production Material 3 seed.
+- portrait/landscape viewport and text-scale controls, using the production
+  Material 3 seed.
 
 It deliberately does not add production routes, repositories, controllers,
 generated models, localization infrastructure, or integration tests. Screen
