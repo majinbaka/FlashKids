@@ -1,8 +1,8 @@
 # 10 — App icon, adaptive icon, splash
 
 > `android/` và `web/` đã được sinh trong repo, nên nhóm này có chỗ để đặt file
-> ngay. Nhưng **thương hiệu và mascot chưa chốt** (`design.md` §12) — icon là thứ
-> khó đổi nhất sau khi phát hành, nên chốt `01-mascot.md` trước.
+> Mascot con lười tím đã chốt trong `design.md` §3. Icon vẫn là thứ khó đổi nhất
+> sau khi phát hành, nên phải kiểm tra kỹ ở 48×48 px và 16×16 px.
 
 ## Ràng buộc riêng của icon
 - Phải đọc được ở **48×48 px** trên màn hình điện thoại và **16×16 px** ở tab
@@ -16,7 +16,7 @@
 ## Prompt A — foreground icon (lớp trước của adaptive icon)
 
 ```text
-An app icon subject: the head of a friendly baby fox mascot, front-facing,
+An app icon subject: the head of a friendly baby sloth mascot, front-facing,
 centered, soft violet #68548E fur with lavender #EBDDFF inner ears and muzzle,
 two round dark violet #4F3D74 eyes, muted rose #FFD9E1 cheeks, warm gentle
 smile, extremely simplified into a few bold rounded shapes, the head occupying
@@ -34,8 +34,8 @@ glossy plastic, skeuomorphic, heavy drop shadow, photorealism, off-center
 composition, subject touching the frame edge.
 ```
 
-> `thin whiskers` nằm trong NEGATIVE có lý do: râu mèo/cáo là thứ đầu tiên biến
-> mất ở 16 px và biến icon thành một vệt mờ.
+> Chi tiết lông mảnh nằm trong NEGATIVE vì chúng là thứ đầu tiên biến mất ở 16 px
+> và biến icon thành một vệt mờ.
 
 ## Prompt B — background icon (lớp sau của adaptive icon)
 
@@ -65,7 +65,7 @@ nền có hoạ tiết sẽ lộ mép khi trượt.
 ## Prompt C — hình splash
 
 ```text
-The baby fox mascot head icon, same design as the app icon, centered on a fully
+The baby sloth mascot head icon, same design as the app icon, centered on a fully
 transparent background, with generous empty margin on all sides, no background
 shape, no text.
 
@@ -80,7 +80,7 @@ một splash chớp nháy là thứ trẻ nhìn thấy đầu tiên mỗi lần 
 ## Prompt D — notification icon (Android, đơn sắc)
 
 ```text
-A pure white silhouette of a simplified baby fox head, solid fill, no interior
+A pure white silhouette of a simplified baby sloth head, solid fill, no interior
 details except two small negative-space cut-outs for ears, completely flat, on a
 transparent background, readable at 24x24 px.
 

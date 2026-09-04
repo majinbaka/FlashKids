@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import 'app/presentation/flash_kids_theme.dart';
+
 void main() {
   runApp(const ProviderScope(child: FlashKidsApp()));
 }
@@ -19,10 +21,7 @@ class FlashKidsApp extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
       title: 'FlashKids',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: flashKidsTheme(),
       routerConfig: ref.watch(appRouterProvider),
     );
   }

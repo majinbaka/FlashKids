@@ -71,8 +71,9 @@ not committed, the workflow prints the versions it resolved.
 who the app is for, the Kid Zone / Parent Zone split, visual language, sizing
 and spacing, motion and audio, copy, and the UI Definition of Done.
 
-The proposed Widgetbook architecture, executable-spec conventions, test strategy,
-and phased implementation plan are documented in
-[`docs/widgetbook_executable_spec.md`](docs/widgetbook_executable_spec.md). The
-document is intentionally a design proposal; the production and Widgetbook
-entry points will be introduced in later implementation phases.
+The implemented presentation-only Widgetbook prototype, screen architecture,
+reuse model, and remaining product boundaries are documented in
+[`docs/widgetbook_executable_spec.md`](docs/widgetbook_executable_spec.md).
+Run its separate entry point with
+`flutter run -d chrome -t widgetbook/main.dart`; it does not replace or extend
+the production router.

@@ -2,10 +2,10 @@
 
 > **Status:** normative design contract. This document decides *how* FlashKids
 > UI must look and behave. It is **not** evidence that any screen, token,
-> component, asset, or theme file described here exists. Today the repository is
-> a single-package Flutter bootstrap whose only screen lives in `lib/main.dart`.
-> Build what a task asks for; do not create the vocabulary below as a side
-> effect.
+> component, asset, or theme file described here exists. Today the production
+> entry point remains a minimal bootstrap, while a presentation-only Widgetbook
+> prototype exercises shared widgets and feature screens from `lib/`. Build what
+> a task asks for; do not extend this vocabulary as a side effect.
 
 Read this together with `AGENTS.md` (binding), `CLAUDE.md` (always-on rules),
 `docs/adr/0001-feature-first-slices-riverpod-go-router.md` (architecture), and
@@ -111,7 +111,12 @@ relative to the focal object.
 
 **Illustration.** Simple, high-contrast, clearly silhouetted subjects on plain
 backgrounds. A picture must be recognizable at a glance and at small size. No
-busy backgrounds behind text. Decorative art is `ExcludeSemantics`.
+busy backgrounds behind text. Decorative art is `ExcludeSemantics`. The approved
+art direction is flat, modern picture-book vector illustration: matte pastel
+fills, soft rounded geometric forms, generous negative space, and no neon,
+photorealism, or 3D gloss. The Kid Zone mascot is a friendly purple baby sloth.
+Source artwork is authored as transparent PNG files under `assets/images/`;
+composited legacy and favicon icons may use their approved flat background.
 
 **Personality of motion.** Springy and short, never floaty. Motion confirms
 what a tap did; it does not entertain by itself (§7).
@@ -124,11 +129,23 @@ Parent Zone: body and label roles at their normal sizes. Never hardcode a
 
 ## 4. Color
 
-**The theme is Material 3, seeded from `Colors.deepPurple`
-(`ColorScheme.fromSeed` in `FlashKidsApp.build`, `lib/main.dart`). Do not change
-the seed, and do not introduce a second palette, as part of an unrelated
-task.** Changing it is a repository-wide decision that needs the user's approval
-and a doc update in the same change.
+**The theme is light Material 3 and uses the approved FlashKids palette in
+`flashKidsTheme` (`lib/app/presentation/flash_kids_theme.dart`).** The palette is
+a repository-wide contract; do not change it or introduce a second palette as
+part of an unrelated task. Changing it needs the user's approval and a doc
+update in the same change.
+
+| Material role | Color |
+|---|---|
+| `primary` | `#DF301C` — warm red |
+| `secondary` | `#FF9100` — orange |
+| `surface` | `#FFF1D1` — cream |
+| `tertiary` | `#00B7CD` — cyan |
+| Kid Zone background | `#FFF1D1` — cream |
+
+The theme defines compatible `on*`, container, outline, and elevation colors
+for this scheme. Widgets use those semantic roles and must not create local
+brand-color literals.
 
 Rules:
 
@@ -177,10 +194,11 @@ Rules:
 
 ## 6. Component vocabulary
 
-Names below are the shared vocabulary for discussing FlashKids UI. **None of
-them exist yet.** Create one only when a task asks for it, in the owning
-feature's `presentation/` directory, one widget per file
-(`flutter-feature-slice`).
+Names below are the shared vocabulary for discussing FlashKids UI. Some now
+exist as presentation-only prototype components. Create another only when a task
+asks for it. Keep feature-local widgets in the owning feature's `presentation/`
+directory and components used across real feature screens in
+`lib/app/presentation/`, one widget per file (`flutter-feature-slice`).
 
 - **Flashcard** — the focal surface: picture, optional word, optional audio
   trigger. States: idle, revealed, correct, incorrect, disabled.
@@ -235,6 +253,12 @@ that is a state value, not three flags the caller must combine correctly.
   the word", not "speaker icon" (`flutter-a11y-kids-ui`).
 - **Numbers and dates** are localized, never string-concatenated.
 
+The presentation-only Widgetbook prototype approved on 2026-09-03 may keep its
+Vietnamese review copy directly in prototype presentation widgets until the
+localization foundation is introduced. This narrow exception does not apply to
+production-connected screens; moving one into the production flow requires ARB
+keys and generated accessors in the same change.
+
 ## 9. The parent gate
 
 Any route that leaves the Kid Zone — settings, purchases, account, external
@@ -250,14 +274,16 @@ gate.
   Kid Zone.
 - The gate is an accessibility surface too: it must be operable by an adult
   using a screen reader.
-- **The concrete challenge mechanism is not decided** (§12). Do not invent one
-  as a side effect; ask.
+- The prototype mechanism is a three-second press-and-hold followed by a written
+  arithmetic challenge. Releasing early resets the hold; an unsuccessful answer
+  remains in the gate with neutral retry copy. This must be validated before a
+  production release.
 
 ## 10. Widgetbook and the state matrix
 
-`docs/widgetbook_executable_spec.md` is a proposal, and **no catalogue entry
-point exists**. Do not create `widgetbook/` as a side effect of a UI change
-(`widgetbook-catalogue`).
+`docs/widgetbook_executable_spec.md` records the implemented presentation-only
+prototype scope. Its catalogue entry point is `widgetbook/main.dart`; production
+routing and behavior remain separate (`widgetbook-catalogue`).
 
 When stories do exist, a component's story covers the full state matrix from
 §6 plus the accessibility-relevant variants: large text scale, long localized
@@ -296,11 +322,14 @@ user (`AGENTS.md` → Conflicts).
 - Dark mode.
 - Typeface. The app currently uses the Material 3 default; no font package is a
   dependency.
-- Mascot, illustration style guide, and where art assets come from.
-- The concrete parent-gate challenge.
+- The production validation and hardening of the approved prototype parent-gate
+  challenge.
 - Card content domains (letters, numbers, vocabulary, language pairs) and the
   session length and repetition model.
 - Sound design, voice-over language coverage, and whether narration is recorded
   or synthesized.
-- Onboarding, profiles/multiple children, and any monetization surface.
+- Production onboarding, profiles/multiple children, and any monetization
+  surface. The Widgetbook-only local onboarding documented in
+  `docs/widgetbook_executable_spec.md` is approved as a presentation prototype;
+  it neither persists data nor changes production routing.
 - Offline behavior, because no data layer exists yet (`flutter-persistence`).

@@ -58,10 +58,10 @@ icons, checkmarks, stars, progress bars.
 |---|---|---|
 | available | nền `surfaceContainerLow` | ảnh bìa đủ độ đậm |
 | in-progress | viền `primary` | vòng/thanh tiến độ + số đếm |
-| completed | nền `{{SUCCESS_ACCENT}}` container | dấu tick + ảnh bìa giữ nguyên độ đậm |
+| completed | nền container `#CDE9CE` | dấu tick + ảnh bìa giữ nguyên độ đậm |
 | locked | giảm opacity lớp ảnh | **icon khoá đặc, nằm giữa** |
 
-`{{SUCCESS_ACCENT}}` chưa được map trong theme — xem `00-art-direction.md` §1.
+Accent hoàn thành là `#4C6B4F`; widget feedback đầu tiên sẽ ánh xạ nó trong theme.
 
 ## Kiểm tra trước khi nhận
 - [ ] Nửa dưới khung đủ trống để đặt 2 dòng chữ dài (thử với chuỗi dịch dài nhất).

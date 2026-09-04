@@ -28,3 +28,17 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/images/cards/
+    - assets/images/alphabet/
+    - assets/images/decks/
+    - assets/images/feedback/
+    - assets/images/icons/
+    - assets/images/mascots/
+    - assets/images/states/
+    - assets/images/subjects/
+  fonts:
+    - family: Baloo2
+      fonts:
+        - asset: assets/fonts/Baloo2.ttf
+          weight: 700

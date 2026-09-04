@@ -36,11 +36,11 @@ dark tone, photorealism, 3D render, glossy plastic, heavy drop shadow.
 
 | Asset | `{{SCENE}}` | Nghĩa mà hình phải tự nói |
 |---|---|---|
-| `state-empty` | The baby fox mascot sitting beside one large empty rounded open box, looking into it with mild curiosity, calm expression | "chưa có gì ở đây" |
-| `state-loading` | The baby fox mascot with a paw on its chin looking up at three evenly spaced rounded dots floating in an arc above its head | "đang chờ" |
-| `state-error` | The baby fox mascot peeking out from behind a large soft lavender rounded shape, one paw visible, mildly surprised but calm and friendly | "có gì đó lỡ rồi, không sao" |
-| `state-offline` | The baby fox mascot curled up asleep inside a large rounded cloud shape, tail over nose, eyes as two soft closed arcs | "đang ngoại tuyến / nghỉ" |
-| `state-deck-done` | The baby fox mascot standing proudly holding a large soft rounded star, warm smile | "hết bài rồi" |
+| `state-empty` | The baby sloth mascot sitting beside one large empty rounded open box, looking into it with mild curiosity, calm expression | "chưa có gì ở đây" |
+| `state-loading` | The baby sloth mascot with a paw on its chin looking up at three evenly spaced rounded dots floating in an arc above its head | "đang chờ" |
+| `state-error` | The baby sloth mascot peeking out from behind a large soft lavender rounded shape, one paw visible, mildly surprised but calm and friendly | "có gì đó lỡ rồi, không sao" |
+| `state-offline` | The baby sloth mascot curled up asleep inside a large rounded cloud shape, tail over nose, eyes as two soft closed arcs | "đang ngoại tuyến / nghỉ" |
+| `state-deck-done` | The baby sloth mascot standing proudly holding a large soft rounded star, warm smile | "hết bài rồi" |
 
 `state-offline` chỉ cần khi có mạng — `design.md` §12 ghi offline behavior chưa
 quyết vì chưa có data layer. Sinh sau, đừng dựng trước.
