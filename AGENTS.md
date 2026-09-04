@@ -30,11 +30,14 @@ boundaries; do not copy this file into feature folders.
 - `analysis_options.yaml`: `flutter_lints` plus the repository's analyzer rules.
 - `CLAUDE.md`: Claude Code's entry point. Restates this file's scope, adds the
   always-on working rules, and indexes the skills.
-- `.claude/skills/`: task-scoped skills (feature slice, widget/Widgetbook, Riverpod
-  state, routing, data models, testing, verification, issue logging, doc sync,
-  localization, accessibility, error handling, persistence, Widgetbook catalogue,
-  commits and PRs) plus `project-knowledge`, the question-answering digest of
-  this repository's product and technical state.
+- `.claude/skills/`: source of the task-scoped skills (feature slice,
+  widget/Widgetbook, Riverpod state, routing, data models, testing, verification,
+  issue logging, doc sync, localization, accessibility, error handling,
+  persistence, Widgetbook catalogue, commits and PRs) plus
+  `project-knowledge`, the question-answering digest of this repository's product
+  and technical state.
+- `.agents/skills/`: project-local symbolic links to `.claude/skills/` so Codex
+  discovers the same skills without a second copy; change the source skills only.
 - `.claude/commands/`: slash commands — `/dod`, `/defer`, `/spec-phase`.
 - `.claude/settings.json`, `.claude/hooks/`: the Claude Code harness for this
   repository — a permission allowlist, a deny rule on hand-editing generated

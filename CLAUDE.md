@@ -81,6 +81,7 @@ above.
 | `flutter-verify` | before reporting any change complete |
 | `flutter-l10n` | any user-facing string, or introducing localization |
 | `flutter-a11y-kids-ui` | touch targets, semantics, contrast, text scaling, motion, audio |
+| `flashkids-image-concepts` | generating or editing FlashKids raster images from the approved concepts |
 | `flutter-error-handling` | anything that can fail — ports, adapters, boundaries, error UI |
 | `flutter-persistence` | storing or reading data that outlives the session; migrations |
 | `widgetbook-catalogue` | the Widgetbook executable, its hierarchy, and use-cases |
