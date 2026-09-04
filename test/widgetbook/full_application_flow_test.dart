@@ -14,6 +14,7 @@ void main() {
       'Mini games',
     ]);
     expect(activitiesFor('english').map((activity) => activity.label), [
+      'Chữ cái',
       'Từ vựng',
       'Phát âm',
       'Mini games',
@@ -41,17 +42,50 @@ void main() {
 
       await tester.tap(find.text('Chữ cái'));
       await tester.pump();
-      expect(find.text('Chọn chữ A'), findsOneWidget);
+      expect(find.text('Chọn chữ để bắt đầu'), findsOneWidget);
 
-      await tester.tap(find.text('A').last);
+      await tester.tap(find.bySemanticsLabel('Chữ A, chưa nhớ'));
       await tester.pump();
-      expect(find.text('Hay lắm!'), findsOneWidget);
+      expect(find.bySemanticsLabel('Thẻ chữ A. A như An'), findsOneWidget);
+      expect(find.byType(Image), findsOneWidget);
 
-      await tester.tap(find.text('Tiếp tục'));
+      await tester.tap(find.text('Đã nhớ'));
       await tester.pump();
       expect(find.text('Bạn đã luyện tập Chữ cái'), findsOneWidget);
     },
   );
+
+  testWidgets('offers English letters and reviews only unremembered letters', (
+    tester,
+  ) async {
+    await tester.pumpWidget(
+      MaterialApp(theme: flashKidsTheme(), home: const FullApplicationFlow()),
+    );
+
+    await _finishLaunch(tester);
+    await tester.tap(find.text('Tiếng Anh'));
+    await tester.pump();
+    await tester.tap(find.text('Chữ cái'));
+    await tester.pump();
+
+    expect(find.bySemanticsLabel('Chữ A, chưa nhớ'), findsOneWidget);
+    await tester.tap(find.text('Học tất cả'));
+    await tester.pump();
+    expect(find.byType(Image), findsOneWidget);
+    await tester.tap(find.text('Đã nhớ'));
+    await tester.pump();
+    expect(find.text('B for Ball'), findsOneWidget);
+
+    await tester.tap(find.bySemanticsLabel('Quay lại màn hình trước'));
+    await tester.pump();
+    expect(find.bySemanticsLabel('Chữ A, đã nhớ'), findsOneWidget);
+    final scrollable = tester.state<ScrollableState>(find.byType(Scrollable));
+    scrollable.position.jumpTo(scrollable.position.maxScrollExtent);
+    await tester.pump();
+    await tester.tap(find.text('Học chữ chưa nhớ (25)'));
+    await tester.pump();
+    expect(find.text('B for Ball'), findsOneWidget);
+  });
 
   testWidgets('onboards a child and opens an age-appropriate lesson', (
     tester,

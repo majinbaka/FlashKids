@@ -1,6 +1,7 @@
 import 'package:flash_kids/features/games/presentation/game_hub_screen.dart';
 import 'package:flash_kids/features/home/presentation/child_home_screen.dart';
 import 'package:flash_kids/features/home/presentation/recommended_lesson_list.dart';
+import 'package:flash_kids/features/learning/presentation/alphabet_overview_screen.dart';
 import 'package:flash_kids/features/learning/presentation/learning_session_screen.dart';
 import 'package:flash_kids/features/learning/presentation/module_overview_screen.dart';
 import 'package:flutter/material.dart';
@@ -160,6 +161,13 @@ List<LearningActivitySummary> activitiesFor(String moduleId) {
     ],
     'english' => const [
       LearningActivitySummary(
+        id: 'english-alphabet',
+        label: 'Chữ cái',
+        description: 'Nhận biết bảng chữ cái tiếng Anh',
+        icon: Icons.abc_rounded,
+        backgroundAsset: englishVocabularyBackground,
+      ),
+      LearningActivitySummary(
         id: 'english-vocabulary',
         label: 'Từ vựng',
         description: 'Học từ bằng hình ảnh',
@@ -203,6 +211,71 @@ List<LearningActivitySummary> activitiesFor(String moduleId) {
         icon: Icons.sports_esports_rounded,
         backgroundAsset: mathGamesBackground,
       ),
+    ],
+    _ => const [],
+  };
+}
+
+List<AlphabetLetter> alphabetFor(String activityId) {
+  return switch (activityId) {
+    'vietnamese-alphabet' => const [
+      AlphabetLetter(value: 'A', example: 'A như An'),
+      AlphabetLetter(value: 'Ă', example: 'Ă như ăn'),
+      AlphabetLetter(value: 'Â', example: 'Â như âm'),
+      AlphabetLetter(value: 'B', example: 'B như bé'),
+      AlphabetLetter(value: 'C', example: 'C như cá'),
+      AlphabetLetter(value: 'D', example: 'D như dê'),
+      AlphabetLetter(value: 'Đ', example: 'Đ như đèn'),
+      AlphabetLetter(value: 'E', example: 'E như em'),
+      AlphabetLetter(value: 'Ê', example: 'Ê như ếch'),
+      AlphabetLetter(value: 'G', example: 'G như gà'),
+      AlphabetLetter(value: 'H', example: 'H như hoa'),
+      AlphabetLetter(value: 'I', example: 'I như in'),
+      AlphabetLetter(value: 'K', example: 'K như kem'),
+      AlphabetLetter(value: 'L', example: 'L như lá'),
+      AlphabetLetter(value: 'M', example: 'M như mèo'),
+      AlphabetLetter(value: 'N', example: 'N như na'),
+      AlphabetLetter(value: 'O', example: 'O như ô'),
+      AlphabetLetter(value: 'Ô', example: 'Ô như ô tô'),
+      AlphabetLetter(value: 'Ơ', example: 'Ơ như ớt'),
+      AlphabetLetter(value: 'P', example: 'P như pin'),
+      AlphabetLetter(value: 'Q', example: 'Q như quà'),
+      AlphabetLetter(value: 'R', example: 'R như rổ'),
+      AlphabetLetter(value: 'S', example: 'S như sư tử'),
+      AlphabetLetter(value: 'T', example: 'T như táo'),
+      AlphabetLetter(value: 'U', example: 'U như ù'),
+      AlphabetLetter(value: 'Ư', example: 'Ư như ước'),
+      AlphabetLetter(value: 'V', example: 'V như voi'),
+      AlphabetLetter(value: 'X', example: 'X như xe'),
+      AlphabetLetter(value: 'Y', example: 'Y như yến'),
+    ],
+    'english-alphabet' => const [
+      AlphabetLetter(value: 'A', example: 'A for Apple'),
+      AlphabetLetter(value: 'B', example: 'B for Ball'),
+      AlphabetLetter(value: 'C', example: 'C for Cat'),
+      AlphabetLetter(value: 'D', example: 'D for Dog'),
+      AlphabetLetter(value: 'E', example: 'E for Elephant'),
+      AlphabetLetter(value: 'F', example: 'F for Fish'),
+      AlphabetLetter(value: 'G', example: 'G for Goat'),
+      AlphabetLetter(value: 'H', example: 'H for Hat'),
+      AlphabetLetter(value: 'I', example: 'I for Ice cream'),
+      AlphabetLetter(value: 'J', example: 'J for Juice'),
+      AlphabetLetter(value: 'K', example: 'K for Kite'),
+      AlphabetLetter(value: 'L', example: 'L for Lion'),
+      AlphabetLetter(value: 'M', example: 'M for Moon'),
+      AlphabetLetter(value: 'N', example: 'N for Nest'),
+      AlphabetLetter(value: 'O', example: 'O for Orange'),
+      AlphabetLetter(value: 'P', example: 'P for Penguin'),
+      AlphabetLetter(value: 'Q', example: 'Q for Queen'),
+      AlphabetLetter(value: 'R', example: 'R for Rabbit'),
+      AlphabetLetter(value: 'S', example: 'S for Sun'),
+      AlphabetLetter(value: 'T', example: 'T for Tree'),
+      AlphabetLetter(value: 'U', example: 'U for Umbrella'),
+      AlphabetLetter(value: 'V', example: 'V for Van'),
+      AlphabetLetter(value: 'W', example: 'W for Whale'),
+      AlphabetLetter(value: 'X', example: 'X for Xylophone'),
+      AlphabetLetter(value: 'Y', example: 'Y for Yak'),
+      AlphabetLetter(value: 'Z', example: 'Z for Zebra'),
     ],
     _ => const [],
   };

@@ -7,6 +7,8 @@ import 'package:flash_kids/features/home/presentation/child_home_screen.dart';
 import 'package:flash_kids/features/home/presentation/child_onboarding_screen.dart';
 import 'package:flash_kids/features/home/presentation/recommended_lesson_list.dart';
 import 'package:flash_kids/features/home/presentation/launch_screen.dart';
+import 'package:flash_kids/features/learning/presentation/alphabet_flashcard_screen.dart';
+import 'package:flash_kids/features/learning/presentation/alphabet_overview_screen.dart';
 import 'package:flash_kids/features/learning/presentation/learning_session_screen.dart';
 import 'package:flash_kids/features/learning/presentation/lesson_complete_screen.dart';
 import 'package:flash_kids/features/learning/presentation/module_overview_screen.dart';
@@ -24,6 +26,8 @@ enum PrototypePage {
   onboarding,
   home,
   module,
+  alphabetOverview,
+  alphabetFlashcard,
   learning,
   lessonComplete,
   gameHub,
@@ -53,6 +57,9 @@ class _FullApplicationFlowState extends State<FullApplicationFlow> {
   ).first;
   GameSummary _game = prototypeGames.first;
   LearningFeedback _learningFeedback = LearningFeedback.none;
+  List<AlphabetLetter> _alphabetDeck = const [];
+  int _alphabetIndex = 0;
+  final Set<String> _rememberedAlphabetLetters = <String>{};
   bool _gameFeedback = false;
   LearningSettingsViewState _settings = const LearningSettingsViewState(
     children: [
@@ -87,12 +94,58 @@ class _FullApplicationFlowState extends State<FullApplicationFlow> {
   }
 
   void _openActivity(LearningActivitySummary activity) {
+    if (alphabetFor(activity.id).isNotEmpty) {
+      _openAlphabetOverview(activity);
+      return;
+    }
     setState(() {
       _activity = activity;
       _learningFeedback = LearningFeedback.none;
       _page = PrototypePage.learning;
     });
   }
+
+  void _openAlphabetOverview(LearningActivitySummary activity) {
+    setState(() {
+      _activity = activity;
+      _alphabetDeck = const [];
+      _alphabetIndex = 0;
+      _page = PrototypePage.alphabetOverview;
+    });
+  }
+
+  void _startAlphabetDeck(List<AlphabetLetter> letters) {
+    setState(() {
+      _alphabetDeck = letters;
+      _alphabetIndex = 0;
+      _page = PrototypePage.alphabetFlashcard;
+    });
+  }
+
+  void _markAlphabetLetter(bool remembered) {
+    final letter = _alphabetDeck[_alphabetIndex];
+    setState(() {
+      if (remembered) {
+        _rememberedAlphabetLetters.add(_alphabetMemoryKey(letter));
+      } else {
+        _rememberedAlphabetLetters.remove(_alphabetMemoryKey(letter));
+      }
+      if (_alphabetIndex == _alphabetDeck.length - 1) {
+        _page = PrototypePage.lessonComplete;
+      } else {
+        _alphabetIndex += 1;
+      }
+    });
+  }
+
+  String _alphabetMemoryKey(AlphabetLetter letter) =>
+      '${_activity.id}:${letter.value}';
+
+  Set<String> get _rememberedLettersForActivity => {
+    for (final letter in alphabetFor(_activity.id))
+      if (_rememberedAlphabetLetters.contains(_alphabetMemoryKey(letter)))
+        letter.value,
+  };
 
   void _completeOnboarding(ChildOnboardingResult child) {
     setState(() {
@@ -126,12 +179,16 @@ class _FullApplicationFlowState extends State<FullApplicationFlow> {
     final activity = activitiesFor(
       module.id,
     ).firstWhere((activity) => activity.id == recommendation.activityId);
-    setState(() {
-      _module = module;
-      _activity = activity;
-      _learningFeedback = LearningFeedback.none;
-      _page = PrototypePage.learning;
-    });
+    _module = module;
+    if (alphabetFor(activity.id).isNotEmpty) {
+      _openAlphabetOverview(activity);
+    } else {
+      setState(() {
+        _activity = activity;
+        _learningFeedback = LearningFeedback.none;
+        _page = PrototypePage.learning;
+      });
+    }
   }
 
   void _openGame(GameSummary game) {
@@ -176,6 +233,29 @@ class _FullApplicationFlowState extends State<FullApplicationFlow> {
           activities: activitiesFor(_module.id),
           onActivitySelected: _openActivity,
           onBack: _goHome,
+          onHome: _goHome,
+        ),
+        PrototypePage.alphabetOverview => AlphabetOverviewScreen(
+          title: '${_module.label} · ${_activity.label}',
+          letters: alphabetFor(_activity.id),
+          rememberedLetters: _rememberedLettersForActivity,
+          onLetterSelected: (letter) => _startAlphabetDeck([letter]),
+          onStudyAll: () => _startAlphabetDeck(alphabetFor(_activity.id)),
+          onStudyUnremembered: () => _startAlphabetDeck([
+            for (final letter in alphabetFor(_activity.id))
+              if (!_rememberedLettersForActivity.contains(letter.value)) letter,
+          ]),
+          onBack: () => _go(PrototypePage.module),
+          onHome: _goHome,
+        ),
+        PrototypePage.alphabetFlashcard => AlphabetFlashcardScreen(
+          title: '${_module.label} · ${_activity.label}',
+          letter: _alphabetDeck[_alphabetIndex],
+          position: _alphabetIndex + 1,
+          total: _alphabetDeck.length,
+          onRemembered: () => _markAlphabetLetter(true),
+          onUnremembered: () => _markAlphabetLetter(false),
+          onBack: () => _go(PrototypePage.alphabetOverview),
           onHome: _goHome,
         ),
         PrototypePage.learning => LearningSessionScreen(

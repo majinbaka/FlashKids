@@ -1,11 +1,52 @@
 import 'package:flash_kids/app/presentation/kid_answer_control.dart';
 import 'package:flash_kids/app/presentation/kid_destination_card.dart';
+import 'package:flash_kids/app/presentation/flashcard.dart';
 import 'package:flash_kids/app/presentation/kid_feedback_panel.dart';
 import 'package:flash_kids/app/presentation/flash_kids_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 
 void main() {
+  testWidgets(
+    'flashcard fills its available width with white vertical content',
+    (tester) async {
+      await tester.pumpWidget(
+        MaterialApp(
+          theme: flashKidsTheme(),
+          home: Scaffold(
+            body: SizedBox(
+              width: 320,
+              child: Flashcard(
+                state: const FlashcardViewState(
+                  imageAsset: 'assets/images/cards/card-animal-cat.png',
+                  title: 'A',
+                  detail: 'A như An',
+                  semanticsLabel: 'Thẻ chữ A. A như An',
+                ),
+              ),
+            ),
+          ),
+        ),
+      );
+
+      final card = find.byType(Flashcard);
+      expect(tester.getRect(card).width, 320);
+      expect(find.bySemanticsLabel('Thẻ chữ A. A như An'), findsOneWidget);
+      expect(
+        tester.getTopLeft(find.byType(Image)).dy,
+        lessThan(tester.getTopLeft(find.text('A')).dy),
+      );
+      expect(
+        tester
+            .widget<Material>(
+              find.descendant(of: card, matching: find.byType(Material)),
+            )
+            .color,
+        Colors.white,
+      );
+    },
+  );
+
   test('uses the approved FlashKids palette for Material color roles', () {
     final colors = flashKidsTheme().colorScheme;
 

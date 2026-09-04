@@ -37,7 +37,7 @@ FlashKids
 ├── Kid Zone (default)
 │   ├── Home
 │   │   ├── Tiếng Việt: Chữ cái, Đánh vần, Phát âm, Mini games
-│   │   ├── Tiếng Anh: Từ vựng, Phát âm, Mini games
+│   │   ├── Tiếng Anh: Chữ cái, Từ vựng, Phát âm, Mini games
 │   │   ├── Toán: Cộng, Trừ, Mini games
 │   │   └── Mini game → Game Hub (dynamic library)
 │   ├── Module Overview / Activity Selection
@@ -77,6 +77,8 @@ future decision.
 | SYS-002 | Child onboarding | System / adult | Ask display name, then age band, to preview recommendations | Launch | Home | Yes |
 | KID-001 | Home | Kid | Choose a recommended lesson, subject, Mini game, or the quiet parent entry | Onboarding/result/back | Learning Session, Module, Game Hub, Gate | Yes |
 | KID-002 | Module Overview | Kid | Choose one activity within a skill | Home | Learning Session or Home | Yes |
+| KID-003A | Alphabet overview | Kid | Choose a letter or a flashcard study set | Vietnamese/English alphabet activity | Alphabet flashcards or Module | Yes |
+| KID-003B | Alphabet flashcards | Kid | Review a selected letter deck and mark recall | Alphabet overview | Next card, result, or overview | Yes |
 | KID-003 | Learning Session | Kid | Make one learning response | Module/next item | Feedback, next item, result, or exit | Yes |
 | KID-004 | Lesson Complete | Kid | Celebrate effort and choose what happens next | Learning Session | Continue or Home | Yes |
 | KID-005 | Game Hub | Kid | Choose a mini game from a dynamic library | Home/game result | Game Detail or Home | Yes |
@@ -98,6 +100,8 @@ future decision.
 | Child onboarding | Provide name, then age band | name field, three age-band choices, next/back actions | name step, age step, validation error |
 | Home | Choose a large destination | greeting, mascot, recommended lesson list, four equal destination cards, quiet gate entry | first use, returning, loading, content unavailable |
 | Module Overview | Start one activity | activity cards, progress shape | populated, loading, empty, content unavailable |
+| Alphabet overview | Pick a letter or study set | visible alphabet grid, all/unremembered study actions | unremembered letters, all remembered |
+| Alphabet flashcards | Mark recall and advance | letter flashcard, visible remember/unremembered actions | first card, in-progress, complete |
 | Learning Session | Answer the current prompt | home/back, progress, visual prompt, audio/speak control when relevant, answer controls, mascot feedback | observe, listening, recording, processing, retry, success, audio unavailable, microphone denied, recognition failed, content unavailable |
 | Lesson Complete | Continue learning | reward art, effort summary, sticker/star acknowledgement | complete, reward reduced-motion variant |
 | Game Hub | Choose a game | featured card, dynamic grid/list, optional future category row | populated, loading, empty/no games, content unavailable |
@@ -143,8 +147,11 @@ flowchart LR
 
 ```mermaid
 flowchart LR
-  Home --> Module[Module Overview]
-  Module --> Intro[Learning Session: observe]
+Home --> Module[Module Overview]
+Module -->|Alphabet| AlphabetOverview[Alphabet overview]
+AlphabetOverview -->|one letter, all, or unremembered| AlphabetCards[Alphabet flashcards]
+AlphabetCards --> Complete[Lesson Complete]
+Module --> Intro[Learning Session: observe]
   Intro --> Input[Listen / speak / choose / arrange]
   Input --> Feedback
   Feedback -->|try again| Input
@@ -243,6 +250,13 @@ Do not create per-skill copies such as `AlphabetSessionScreen`,
 `AdditionResultScreen`, or `VocabularyResultScreen`. Reuse these contracts:
 
 - `Module Overview` configured by skill and supported activities.
+- `Alphabet overview` configured by a language alphabet; it exposes direct letter
+  selection plus all/unremembered study sets.
+- `Alphabet flashcards` configured by the selected local deck. A right swipe
+  marks the current letter remembered and a left swipe marks it unremembered;
+  large visible buttons provide the same actions. Its shared, white flashcard
+  fills the available content width and renders the local alphabet image above
+  the visible letter and example.
 - `Learning Session` configured by skill content, interaction, and visible
   capabilities such as audio or microphone.
 - `Lesson Complete` configured by practised content and earned acknowledgement.
@@ -263,8 +277,9 @@ to shared code only after at least two real screens need the same stable concept
 
 - Launch, local-only child onboarding, Home, the three subject entries, shared
   activity/session/result shells.
-- Alphabet, pronunciation, vocabulary, spelling, addition, and subtraction
-  configurations using sample content.
+- Vietnamese and English alphabet tables plus flashcard review, pronunciation,
+  vocabulary, spelling, addition, and subtraction configurations using sample
+  content. Alphabet recall is local to the mounted prototype and is not stored.
 - Game Hub, one reusable game flow, Collection, Parent Gate, Parent Overview,
   progress detail, and learning settings.
 - Loading, empty, content unavailable, muted/audio unavailable, microphone
@@ -291,7 +306,8 @@ The catalogue currently provides:
 - isolated representative Home, Learning Session, and empty Game Hub states;
 - one interactive `App Prototype / Full Application Flow` with fresh local UI
   state on every mount, including name/age-band onboarding and fixed local lesson
-  recommendations;
+  recommendations, Vietnamese/English alphabet selection, and swipe/tap
+  flashcard recall marking;
 - portrait/landscape viewport and text-scale controls, using the production
   Material 3 seed.
 
